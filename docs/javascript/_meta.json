@@ -1,11 +1,8 @@
 [
     {
-        "name": "introduction",
-        "label": "자바스크립트 소개"
-    },
-    {
-        "name": "variables",
-        "label": "변수 & 상수"
+     "type" : "dir",
+     "name" : "core",
+     "label" : "Core"
     }
-]
-
+ ]
+ 

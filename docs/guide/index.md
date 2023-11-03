@@ -6,6 +6,8 @@ Rspress supports not only Markdown but also [MDX](https://mdxjs.com/), a powerfu
 
 MDX is a superset of Markdown, which means you can write Markdown files as usual. For example:
 
+[마크다운 문법 보러가기](https://www.markdownguide.org/basic-syntax/)
+
 ```md
 # Hello World
 ```

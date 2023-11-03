@@ -29,3 +29,24 @@
 
 *클라이언트 사이드 Web API는 ECMAScript와는 별도로 World Wide Web Consortium (W3C)에서 별도의 명세로 관리하고 있다. 클라이언트 사이드 Web API의 자세한 내용은 MDN web docs: Web API를 참고하기 바란다.
 
+### ECMAScript 버전별 특징
+
+| 버전   | 출시 연도  | 특징  |
+| :---  | :----   | :--- |
+| ES1   | 1997     | 초판  |
+| ES2   | 1998     | ISO/IEC 16262 국제 표준과 동일한 규격을 적용 |
+| ES3 | 1999 | 정규 표현식, try ... catch |
+| ES5 | 2009 | HTML5와 함께 출현한 표준안. JSON, strict mode, 접근자 프로퍼티, 프로퍼티 어트리뷰티 제어, 향상된 배열 조작 기능(forEach, map, reduce, some, every) |
+| ES6 (ECMAScript 2015) | 2015 | let, const, class, 화살표 함수, 템플릿 리터럴, 디스트럭처링 할당, spread 문법, rest 파라미터, Symbol, Promise, Map/Set, iterator/generator, module import/export |
+| ES7 (ECMAScript 2016) | 2016 | 지수(**) 연산자, Array.prototype.includes, String.prototype.includes |
+| ES8 (ECMAScript 2017) | 2017 | async/await, Object 정적 메소드(Object.values, Object.entries, Object.getOwnPropertyDescriptors) |
+| ES9 (ECMAScript 2018) | 2018 | [Object Rest/Spread 프로퍼티](https://github.com/tc39/proposal-object-rest-spread) |
+
+
+### Babel 과 Polyfill
+1. 브라우저에서 지원하지 않는 문법을 호환가능한 버전으로 컴파일(컴파일/트랜스파일) 해주는 게 babel이다.
+하지만 모두 변환이 가능하지 않는데, 지원하지 않은 함수(메소드)가 없다면 이는 컴파일이 되어도 실행되지 않을 것이다. 이럴 때 지원되지 않는 코드를 추가해주는게 polyfill 이다.
+2. **Babel**은 window 전역 공간에서 생성되는 객체나 메소드가 아닌 새로운 문법 (const, let, spred operator, arrow function, call 등)을 컴파일 해준다.
+3. **Polyfill**의 경우, 표준에 새롭게 추가된 함수나 기존 함수를 수정하여 스크립트가 최신 표준을 준수할 수 있도록 도와준다.  
+    *[core.js (다양한 폴리필 제공)](https://github.com/zloirock/core-js)  
+    *[polyfill.io (기능, 브라우저에 따른 폴리필 스크립트 제공)](https://polyfill.io/)
