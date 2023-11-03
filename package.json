@@ -1,0 +1,26 @@
+{
+  "name": "webgram",
+  "version": "0.0.1",
+  "author": "satang1245",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satang1245/webgram.git"
+  },
+  "main": "index.js",
+  "devDependencies": { "rspress": "^1.4.1", "ts-node": "^10.9.1", "typescript": "^5.2.2" },
+  "bugs": {
+    "url": "https://github.com/satang1245/webgram/issues"
+  },
+  "description": "person learning site",
+  "directories": {
+    "doc": "docs"
+  },
+  "homepage": "https://stang1245.github.com/webgram/",
+  "keywords": [],
+  "license": "ISC",
+  "scripts": {
+    "dev": "rspress dev",
+    "build": "rspress build",
+    "preview": "rspress preview"
+  }
+}
