@@ -24,6 +24,7 @@ features:
   - title: Typescript
     details: 타입스크립트도 해야겠지..?
     icon: 🐣
+    link: /typescript/introduction
   - title: React & vue & svelte
     details: 라이브러리? 프레임워크? 뭐지?
     icon: 🐥

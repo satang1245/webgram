@@ -6,6 +6,21 @@
     {
         "name": "variables",
         "label": "변수 & 상수 & 데이터타입"
+    },
+    {
+        "name": "function",
+        "label": "함수 & 스코프 & 호이스팅"
+    },
+    {
+        "name": "operation",
+        "label": "연산 & 조건문 & 반복문"
+    },
+    {
+        "name": "object",
+        "label": "객체"
+    },
+    {
+        "name": "prototype",
+        "label": "프로토타입"
     }
 ]
-

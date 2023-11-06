@@ -163,6 +163,10 @@ function hello( str ) {
     console.log(str); // undefined
 }
 hello();
+
+// 객체의 경우 프로퍼티 키가 없을 경우에도 undefined가 나온다.
+var user = {};
+console.log( user.hello ); // undefined
 ```
 
 #### null
