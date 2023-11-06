@@ -13,6 +13,7 @@ export default defineConfig({
   themeConfig: {
     socialLinks: [
       { icon: 'github', mode: 'link', content: 'https://github.com/satang1245/webgram' },
+      { icon: 'twitter', mod: 'link', content: 'https://twitter.com/satang1245' }
     ],
     footer: {
       message: '© Webgram. All rights reserved.',
