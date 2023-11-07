@@ -1,7 +1,103 @@
-# 프로토타입 객체
+## 프로토타입 객체
 
 자바스크립트의 모든 객체는 자신의 부모 역할을 담당하는 객체와 연결되어 있다.  
-그리고 이것은 마치 객체 지향의 상속 개념과 같이 부모 객체의 프로퍼티 또는 메소드를 상속받아 사용할 수 있게 한다.  
+그리고 이것은 마치 *객체 지향의 상속 개념과 같이 부모 객체의 프로퍼티 또는 메소드를 상속*받아 사용할 수 있게 한다.  
 이러한 부모 객체를 Prototype(프로토타입) 객체 또는 줄여서 Prototype(프로토타입)이라 한다.  
-  
-Prototype 객체는 생성자 함수에 의해 생성된 각각의 객체에 공유 프로퍼티를 제공하기 위해 사용한다.
+
+자바스크립트는 이 `프로토타입(prototype)`을 기반으로 상속을 구현한다.
+
+### 상속
+부모 객체의 포로토타입 객체를 상속받아 사용함. 코드를 재사용 함으로 불필요한 소스 및 메모리 소모를 줄이기 위해.  
+<small>*자바스크립트는 프로토타입을 기반으로 [객체지향 프로그래밍 언어](https://poiemaweb.com/js-object-oriented-programming)를 만든다.</small>
+
+
+```javascript
+function User(name, age) {
+    this.name = name;
+    this.age = age;
+    this.adult = true;
+    this.setName = function(name) {
+        this.name = name;
+    }
+    this.getName = function() {
+        return this.name;
+    }
+}
+
+// 인스턴스 생성
+var user1 = new User('홍길동', '38');
+var user2 = new User('수지', '23');
+console.log(user1) // Object { name: "홍길동", age: "38", adult: true, setName: setName(name), getName: getName() }
+console.log(user2) // Object { name: "수지", age: "23", adult: true, setName: setName(name), getName: getName() }
+```
+위 예제의 경우 문제가 없어 보이지만, 실제 생성된 인스턴스를 확인해보면 중복된 프로퍼티와 메소드가 보인다.  
+이는 인스턴스가 많이 생성될수록 불필요한 메모리 낭비로 이어질 수 있다.  
+
+이와 같은 문제는 프로토타입 객체를 통하여 해결할 수 있다.
+```javascript
+function User(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// 프로토타입 객체에 메소드 정의
+User.prototype.adult = true;
+User.prototype.setName = function(name) {
+    this.name = name;
+}
+User.prototype.getName = function() {
+    return this.name;
+}
+
+var user1 = new User('홍길동', '38');
+var user2 = new User('수지', '23');
+
+console.log(user1); // Object { name: "홍길동", age: "38" }
+console.log(user2); // Object { name: "수지", age: "23" }
+
+user2.getName(); // 수지
+```
+위 예제에서 확인한 것과 같이 adult 프로퍼티나 setName, getName 메소드는 User 생성자 함수에 등록된 것이 아닌,  
+User prototype 객체에 등록된 것을 확인해 볼 수 있다.
+
+<p className={'my-4'}><img src={'/exam-prototype-user1.jpg'} alt={"User프로토타입예제"} width={'100%'} style={{maxWidth: '620px'}} /></p>
+
+<small>[* 아래 이미지는 모던 자바스크립트 DeepDive 사이트에서 가져온 것 입니다. ]</small>
+<p className={'my-4'}><img src={'https://poiemaweb.com/img/prototype.png'} alt={''} width={'100%'} style={{maxWidth: '620px'}} /></p>
+
+> User 함수내 직접 등록할 하여 사용할 경우 new 연산자를 생성한 각 객체에 독립적으로 동일한 기능을 하는 메소드나 프로퍼티가 존재하게 되는데, 
+> 이는 불필요한 메모리 손실을 불러올 수 있으며, 동일한 메소드를 수정함에 있어서 어려움이 생길 수 있다.  
+> 이를 해결하기 위해, User 함수의 프로토타입 객체에 등록하여 사용하는 것이 좋다.
+
+<small> **\*모든 객체는 상위(부모) 객체 역할을 하는 prototype 의 모든 프로퍼티와 메서드를 상속받는다.** </small>  
+
+```javascript
+user1.adult === user2.adult; // true
+
+user1.adult = false;
+user1.adult === user2.adult; // false 
+
+--- 
+console.log( user1.getName() );
+
+User.prototype.getName = function() {
+    return 'Hi ! ' + this.name;
+};
+console.log( user1.getName() );
+console.log( user2.getName() );
+```
+
+--- 
+
+### [[Prototype]]
+모든 객체는 [[Prototype]] 이라는 내부 슬롯을 가지고 있으며, 이는 생성방식에 따라 프로토타입이 결정된다.
+    - var user = \{\} // 객체리터럴로 생성한 경우. `Object.prototype` 
+    - var user1 = new User() // 생성자 함수를 이용한 경우 생성자 함수의 프로토타입 객체와 연결하게 된다.
+      <br />함수 또한 Object객체에 포함되기 때문에 Object.prototye 또한 사용가능하다.  
+      즉, 생성자 함수를 통하여 객체를 생성한 경우 `생성자함수.protoype` & `Function.protoype` & `Object.prototype`   
+      모두 사용이 가능하다.
+    - 내부 슬롯에 직접적으로 접근은 불가하다.
+--- 
+
+### \_\_proto\_\_ (접근자 프로퍼티)
+모든 객체는`__proto__` 접근자 프로퍼티를 통해 `[[Prototype]] 내부 슬롯`에 접근 할수 있다.

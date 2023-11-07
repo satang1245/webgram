@@ -18,18 +18,13 @@
 :::tip 3.2 Method
 값이 함수일 경우, 일반 함수와 구분짓기 위해 `매소드`라고 부른다.  
 ```javascript
-function User(name) {
-    let [lastName, firstName] = name.split(' ');
-
-    return {
-        // 메소드
-        getFullName : function() {
-            return `My name is ${lastName}${firstName} .`
-        }
-    }
-}
-
-const user = new User('홍 길동');
+var user1 = {
+  name: '홍길동',
+  age: '38',
+  sayHello: function () { // 값이 함수일 경우 : 메소드
+    console.log('Hi! My name is ' + this.name);
+  }
+};
 ```
 :::
 
@@ -134,7 +129,7 @@ var user2 = {
 생성자 함수를 사용하여 객체 생성
 ```javascript
 // 생성자 함수. - 생성자 함수의 경우 일반적으로 대문자로 시작.
-function Person(name, age) {
+function User(name, age) {
     this.name = name;
     this.age = age;
     this.sayHello = function() {
@@ -143,8 +138,8 @@ function Person(name, age) {
 }
 
 // 인스턴스 생성
-var user1 = new Person('홍길동', '38');
-var user2 = new Person('수지', '23');
+var user1 = new User('홍길동', '38');
+var user2 = new User('수지', '23');
 
 console.log('user1: ', typeof user1);
 console.log('user2: ', typeof user2);
@@ -161,7 +156,7 @@ user2.sayHello(); // 하이!! My name is 수지
  - 생성자 함수 내에서 선언된 일반 변수는 외부에서 참조 불가능(private)하다. <br />즉, 생성자 함수 내부에서는 자유롭게 접근이 가능하나 외부에서 접근할 수 없다.
 
 ```javascript
-function Person(name, age) {
+function User(name, age) {
     var gender = 'male'; // private
 
     this.name = name;  // public
@@ -171,7 +166,7 @@ function Person(name, age) {
     }
 }
 
-var user1 = new Person('홍길동', '38');
+var user1 = new User('홍길동', '38');
 
 // 객체의 경우 프로퍼티 키가 존재하지 않아도 오류가 아닌 undefined가 선언.
 console.log( user1.gender ); // undefined 
