@@ -21,6 +21,10 @@
     },
     {
         "name": "prototype",
-        "label": "프로토타입"
+        "label": "프로토타입 & 빌트인 객체"
+    },
+    {
+        "name": "this.mdx",
+        "label": "this"
     }
 ]

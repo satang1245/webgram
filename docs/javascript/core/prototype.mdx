@@ -1,4 +1,4 @@
-# 프로토타입 
+# 프로토타입 & 빌트인 객체 
 
 ## 1. 프로토타입 객체란?
 
@@ -34,6 +34,8 @@ console.log(user2) // Object { name: "수지", age: "23", adult: true, setName: 
 ```
 위 예제의 경우 문제가 없어 보이지만, 실제 생성된 인스턴스[^sup1]를 확인해보면 중복된 프로퍼티와 메소드가 보인다.  
 이는 인스턴스가 많이 생성될수록 불필요한 메모리 낭비로 이어질 수 있다.  
+
+[^sup1]: 인스턴스(instance): 추상화된 개념 또는 클래스 정의를 통해 생성된 객체.
 
 이와 같은 문제는 프로토타입 객체를 통하여 해결할 수 있다.
 ```javascript
@@ -163,8 +165,9 @@ function User(name) {
 }
 
 var user1 = { name : '나나' };  // 객체를 직접 생성.
-var user2 = { name : '애플' };
-var user3 = new User('파인');   // 생성자 함수를 통해 생성 된 객체.
+var user3 = { name : '애플' };
+
+var user2 = new User('파인');   // 생성자 함수를 통해 생성 된 객체.
 
 // Object.prototype에 할당
 console.log( user1.__proto__ ); // {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …} 
@@ -175,12 +178,12 @@ console.log( user1.__proto__ === Object.prototype );
 user1.__proto__.getName = function() {
     return this.name;
 };
-console.log( user2.getName() );
+console.log( user3.getName() );
 
 
 // 부모격인 User.prototype에 할당.
-console.log( user3.__proto__ ); // User {name: '파인', [[Prototype]] : Object}
-console.log( user3.__proto__ === User.prototype );
+console.log( user2.__proto__ ); // User {name: '파인', [[Prototype]] : Object}
+console.log( user2.__proto__ === User.prototype );
 
 // Function.prototype
 console.log( User.__proto__ );
@@ -194,4 +197,40 @@ console.log( User.__proto__ );
 `Object.getPrototypeOf()` 또는 `Object.setPrototypeOf()` 문법을 사용을 권장.
 :::
 
-[^sup1]: 인스턴스(instance): 추상화된 개념 또는 클래스 정의를 통해 생성된 객체.
+```javascript
+User.prototype.setName = function(name) {
+    this.name = name;
+};
+
+Object.setPrototypeOf(user3, User.prototype);
+Object.getPrototypeOf(user1) === User.prototype; // false
+Object.getPrototypeOf(user2) === User.prototype; // true
+Object.getPrototypeOf(user3) === User.prototype; // true - setPrototypeOf를 통해 prototype chain을 시켜줬음으로.
+```
+
+---
+
+## 빌트인 (bulit-in Object)
+
+Javascript 객체 분류
+1. 표준 객체(Native Object) - ECMAScript 사양에 정의 된 객체, 애플리케이션의 환경과 관계없이 언제나 전역 사용 가능.
+    - Object, String, Number, Function, Array, RegExp, Date, Math, Boolean, Error(+기타 에러관련 obj), Symbol(ES6), JSON, Promise, Proxy, Map, Set...
+    - [표준내장객체](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects)
+
+```javascript
+var str = 'Hello world!';
+var res = str.toUpperCase();
+console.log(res); // 'HELLO WORLD!'
+
+var num = 1.5;
+console.log(num.toFixed()); // 2
+
+```
+
+2. 호스트 객체 - ECMAScript 사양에 정의되어 있지는 않지만, os( nodejs) 또는 웹 브라우저등 실행환경에서 제공하는 객체.
+    - 브라우져: `windows`객체, Server side(Nodejs): `global`객체
+    <p className={'my-4'}><img src={'https://poiemaweb.com/img/BOM.png'} alt={''} width={'100%'} style={{maxWidth: '380px'}} /></p>
+    - BOM (Browser Object Model) : 브라우저 객체 모델
+    - DOM (Document Object Model) : 문서 객체 모델
+    <p className={'my-4'}><img src={'https://poiemaweb.com/img/DOM.png'} alt={''} width={'100%'} style={{maxWidth: '380px'}} /></p>
+    
