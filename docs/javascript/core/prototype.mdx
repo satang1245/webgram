@@ -1,13 +1,15 @@
-## 프로토타입 객체
+# 프로토타입 
+
+## 1. 프로토타입 객체란?
 
 자바스크립트의 모든 객체는 자신의 부모 역할을 담당하는 객체와 연결되어 있다.  
-그리고 이것은 마치 *객체 지향의 상속 개념과 같이 부모 객체의 프로퍼티 또는 메소드를 상속*받아 사용할 수 있게 한다.  
+그리고 이것은 마치 **객체 지향의 상속 개념과 같이 부모 객체의 프로퍼티 또는 메소드를 상속**받아 사용할 수 있게 한다.  
 이러한 부모 객체를 Prototype(프로토타입) 객체 또는 줄여서 Prototype(프로토타입)이라 한다.  
 
 자바스크립트는 이 `프로토타입(prototype)`을 기반으로 상속을 구현한다.
 
-### 상속
-부모 객체의 포로토타입 객체를 상속받아 사용함. 코드를 재사용 함으로 불필요한 소스 및 메모리 소모를 줄이기 위해.  
+### 1.1 상속
+부모 객체의 프로토타입 객체를 상속받아 사용함. 코드를 재사용 함으로 불필요한 소스 및 메모리 소모를 줄이기 위해.  
 <small>*자바스크립트는 프로토타입을 기반으로 [객체지향 프로그래밍 언어](https://poiemaweb.com/js-object-oriented-programming)를 만든다.</small>
 
 
@@ -30,7 +32,7 @@ var user2 = new User('수지', '23');
 console.log(user1) // Object { name: "홍길동", age: "38", adult: true, setName: setName(name), getName: getName() }
 console.log(user2) // Object { name: "수지", age: "23", adult: true, setName: setName(name), getName: getName() }
 ```
-위 예제의 경우 문제가 없어 보이지만, 실제 생성된 인스턴스를 확인해보면 중복된 프로퍼티와 메소드가 보인다.  
+위 예제의 경우 문제가 없어 보이지만, 실제 생성된 인스턴스[^sup1]를 확인해보면 중복된 프로퍼티와 메소드가 보인다.  
 이는 인스턴스가 많이 생성될수록 불필요한 메모리 낭비로 이어질 수 있다.  
 
 이와 같은 문제는 프로토타입 객체를 통하여 해결할 수 있다.
@@ -87,17 +89,109 @@ console.log( user1.getName() );
 console.log( user2.getName() );
 ```
 
+prototype를 이용하여, 다른 객체를 상속 받을 수 도 있다.
+```javascript
+function Animal(type, name, sound) {
+  this.type = type;
+  this.name = name;
+  this.sound = sound;
+}
+
+Animal.prototype.say = function() {
+  console.log(this.sound);
+};
+Animal.prototype.sharedValue = 1;
+
+function Dog(name, sound) {
+  Animal.call(this, '개', name, sound);
+}
+Dog.prototype = Animal.prototype;
+
+function Cat(name, sound) {
+  Animal.call(this, '고양이', name, sound);
+}
+Cat.prototype = Animal.prototype;
+
+const dog = new Dog('멍멍이', '멍멍');
+const cat = new Cat('야옹이', '야옹');
+
+dog.say();
+cat.say();
+
+```
+
+---
+
+### 1.2 constructor 프로퍼티
+객체에는 생성자를 가르키는 프로퍼티
+```javascript
+function User(name) {
+    this.name = name;
+}
+var user1 = new User('홍길동');
+
+user1.constructor === User; // true
+```
+user1객체의 생성자는 User라는 의미이다.  
+
+User함수에도 constructor 프로퍼티가 존재하는데, 이는 Function 자체를 의미한다.
+
+```javascript
+User.constructor === Function; // true
+```
+
 --- 
 
-### [[Prototype]]
+### 1.3 프로토타입 체인
+
+#### 1.3.1 [[Prototype]]
 모든 객체는 [[Prototype]] 이라는 내부 슬롯을 가지고 있으며, 이는 생성방식에 따라 프로토타입이 결정된다.
     - var user = \{\} // 객체리터럴로 생성한 경우. `Object.prototype` 
     - var user1 = new User() // 생성자 함수를 이용한 경우 생성자 함수의 프로토타입 객체와 연결하게 된다.
-      <br />함수 또한 Object객체에 포함되기 때문에 Object.prototye 또한 사용가능하다.  
-      즉, 생성자 함수를 통하여 객체를 생성한 경우 `생성자함수.protoype` & `Function.protoype` & `Object.prototype`   
+      <br />함수 또한 Object객체에 포함되기 때문에 Object.prototype 또한 사용가능하다.  
+      즉, 생성자 함수를 통하여 객체를 생성한 경우 `생성자함수.prototype` & `Function.prototype` & `Object.prototype`   
       모두 사용이 가능하다.
     - 내부 슬롯에 직접적으로 접근은 불가하다.
+
 --- 
 
-### \_\_proto\_\_ (접근자 프로퍼티)
-모든 객체는`__proto__` 접근자 프로퍼티를 통해 `[[Prototype]] 내부 슬롯`에 접근 할수 있다.
+#### 1.3.2 \_\_proto\_\_ (접근자 프로퍼티)
+함수를 제외한 객체는`__proto__` 접근자 프로퍼티를 통해 `[[Prototype]] 내부 슬롯`에 접근 할수 있다.  
+```javascript
+function User(name) {
+    this.name = name;
+}
+
+var user1 = { name : '나나' };  // 객체를 직접 생성.
+var user2 = { name : '애플' };
+var user3 = new User('파인');   // 생성자 함수를 통해 생성 된 객체.
+
+// Object.prototype에 할당
+console.log( user1.__proto__ ); // {constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …} 
+console.log( user1.__proto__ === Object.prototype );
+// Object.prototype.getName = function() {
+//     return this.name;
+// };
+user1.__proto__.getName = function() {
+    return this.name;
+};
+console.log( user2.getName() );
+
+
+// 부모격인 User.prototype에 할당.
+console.log( user3.__proto__ ); // User {name: '파인', [[Prototype]] : Object}
+console.log( user3.__proto__ === User.prototype );
+
+// Function.prototype
+console.log( User.__proto__ );
+
+```
+
+<p className={'my-4'}><img src={'/exam-prototype-proto.jpg'} alt={''} width={'100%'} style={{maxWidth: '620px'}} /></p>
+
+:::tip Tip!
+해당 기능은 더 이상 권장되지 않는 비표준 문법으로,  
+`Object.getPrototypeOf()` 또는 `Object.setPrototypeOf()` 문법을 사용을 권장.
+:::
+
+[^sup1]: 인스턴스(instance): 추상화된 개념 또는 클래스 정의를 통해 생성된 객체.
