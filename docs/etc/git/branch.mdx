@@ -125,3 +125,27 @@ $ git commit -m "충돌 수정"
 ```
 <img src={'/exam/2023-11-08-16-16-01.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '360px'}} />
 <small>충돌 해결 후 로그 명령어를 통해 확인 모습</small> 
+
+### 3way merge tool
+base 된 파일에서 2개의 브런치를 나뉘어 제작후 Merge하기.
+1. Base 라인에서 2명의 작업자가 각자 브랜치(A,B)를 생성후 작업을 한 후 merge를 했다면.  
+2. git checkout A브랜치로 이동 후 git merge B 를 통하여 머지.
+3. 충돌 해결 후 complet
+
+| Base 파일 | A 브랜치 | B 브랜치 | merge후 |
+| :--: | :--: | :--: | :--: |
+| A | A | A | A |
+| B | B | K | K |
+| C | M | C | M |
+| D | E | F | ?<small>(conflict)</small> |
+
+--- 
+
+강의를 마치며 나중에 찾아보자.
+
+`git flow` : 해당 키워드를 통해 업무 방식, git 브랜치를 효과적으로 사용하는 방법을 찾아보자.  
+`rebase` : 해당 키워드는 깃 명령어로 merge와 같지만, git graph를 깔끔하게 정리하기 위해 사용.  
+ - 기존 base에서 작업한 결과물에 브랜치에서 작업 중이던 커밋을 base 라인으로 가져오는데,  
+  merge와 다르게 브랜치의 작업 히스토리(타임라인) 전체를 다 가져옴.
+
+추가적으로 개념 정리를 하자면..[생황코딩 강의참고](https://opentutorials.org/course/3840/23693)
