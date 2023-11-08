@@ -1,0 +1,10 @@
+[
+    {
+        "name": "introduction",
+        "label": "Git 소개"
+    },
+    {
+        "name": "cli-git",
+        "label": "CLI를 통한 실행"
+    }
+]
