@@ -37,6 +37,21 @@ $ git commit -m "워크1 커밋" # -> (Stage Area => Repository(.git))
 
 <img src={'/exam/2023-11-08-10-20-06.png'} alt={'git flow'} width={'100%'} />
 
+## 추후 알아 볼 것!
+`.gitignore`
+버전관리에서 제외할 예외처리 파일을 지정하도록 도와주는 파일.
+
+`branch`
+평행우주처럼 내 버전을 여러 가지로 나눠서 협업을 해보자.
+
+`tag`
+commit id는 너무 어려우니 이를 단순화 시킬 수 있는 tag에 대해 알아두자.
+
+`backup`
+git 백업방법을 알아두자!
+
+
+
 ---
 
 ## 명령어들 알아보기
@@ -62,6 +77,8 @@ $ git add . # or git add [file] -> git add ./work1.txt
 4. staging area에 있는 파일들을 저장소에 하나의 버전으로 생성.( create version )
 ```bash
 $ git commit -m "버전관리 기록에 남길 메세지"
+# 참고: 반영된 commit메세지를 수정하고자 할 경우 
+# $ git commit --amend
 ```
 
 :::tip Tip : git add + git commit 한방에하기!
@@ -87,16 +104,29 @@ $ git diff
 7. 마지막 버전으로 돌리는 명령어
 ```bash
 $ git reset --hard # 옵션은 추후 배워 봅시다.
+
+# 과거 특정버전으로 돌리기 (선택된 버전 이후에 history까지 사라짐.)
+git reset --hard 8a7845063c2abf972cbbf8ca3b0000016086dbbe # 뒤에 버전 아이디 입력.
+
 ```
 
-8. 원하는 버전으로 돌아가기 
+8. 원하는 시점으로 돌아가기
 ```bash
-# 과거 특정버전으로 돌아가기
+# 과거 특정버전으로 시점으로 돌아가기
 $ git checkout 8a7845063c2abf972cbbf8ca3b0000016086dbbe # git checkout [버전 아이디]
 
 # 최신버전으로 돌아가기
 $ git checkout main # 현재 브런치는 마지막 최종 아이디값과 연결되어 있음으로.
 ```
+
+9. revert 명령어 (선택된 버전 내용만 되돌리기)
+```bash
+$ git revert 8a7845063c2abf972cbbf8ca3b0000016086dbbe # 선택된 버전의 작업 내용을 제거.
+```
+:::danger 중요!
+revert 명령어는 그 시점으로 돌아가는 것이 아닌, 선택된 버전에서 작업된 내용만 제거하는 것.  
+때문에 revert 과정에서 충돌이 일어나 merge해야 하는 상황이 올 수 있기 때문에 사용이 어려움.
+:::
 
 ***다양한 옵션들이 있으니, 검색을 통해 찾아보자.***
 

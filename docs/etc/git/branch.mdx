@@ -1,0 +1,124 @@
+# 브랜치
+동일한 저장소를 복제하지 않고, 복제한 듯한 효과를 낼 수 있는 방법.
+
+## 브랜치 실습 작업 셋팅
+1. 작업 폴더생성 
+2. repository 생성
+3. 파일 생성 후 3번의 버전을 생성.
+```bash
+# goods폴더를 생성 후 goods 폴더로 이동.
+$ mkdir goods && cd goods 
+
+# 레파지토리 생성 (initalize repository)
+$ git init .
+
+# work.txt 라는 생성 및 "work1" 이라는 텍스트 등록
+$ echo "work1" >> work.txt
+
+# 1번째 버전 생성.
+$ git add ./work.txt
+$ git commit -m "워크 커밋1"
+
+# 2번째 버전 생성.
+$ echo "work2" >> work.txt # work.txt에 마지막줄에 work2 라는 텍스트 추가.
+$ git commit -am "워크 커밋2" # 수정된 파일이기 때문에 -am옵션 사용으로 한번에 처리.
+
+# 3번째 버전 생성 (2번째 생성 과정과 동일)
+
+# 생성된 현재 버전 확인.
+$ git log
+```
+<img src={'/exam/2023-11-08-14-12-54.png'} alt={'예제 결과물'} width={'400px'} />
+<small>[git log 명령어를 통해 보여지는 모습]</small>
+
+
+## 브랜치 생성
+
+```bash
+$ git branch # 브런치 목록 보기
+$ git branch apple # apple의 이름을 가진 브랜치 생성
+$ git branch google # google 이름을 가진 브랜치 생성
+$ git branch ms # ms 이름을 가진 브랜치 생성
+
+$ git checkout apple # 브랜치 전환
+
+# git log에 옵션을 주어 상세하게 확인하는 방법.
+$ git log --all --graph --oneline # 옵션에 대한 설명은 직접 찾아보는 걸로..
+```
+
+1. 현재 제품에 3개의 고객사가 있다고 가정 (apple, google, ms)
+```bash
+$ git branch apple # and googld, ms 생성.
+```
+<img src={'/exam/2023-11-08-14-25-10.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '360px'}} />
+<small>브랜치 생성 후 로그확인 화면</small>  
+<small>*현재 HEAD는 `main`과 연결되어 있음. (현재 버전이 바라보고 있는 브랜치는 main이라는 의미)</small>  
+
+2. 현재 버전에서 파일 수정 후 로그 확인
+```bash
+$ echo "work4" >> work.txt 
+$ git commit -am "워크 커밋4"
+```
+
+<img src={'/exam/2023-11-08-15-32-29.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '360px'}} />
+<small>버전 변경 후 로그확인 화면</small>  
+<small>*현재 HEAD는 `main`과 연결되어 있음. (현재 버전이 바라보고 있는 브랜치는 main이라는 의미)</small>  
+
+3. 브랜치 전환 후 브랜치 및 파일 내역 확인.
+```bash
+$ git checkout apple # 브랜치 전환
+```
+
+<img src={'/exam/2023-11-08-15-26-02.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '360px'}} />
+<small>버전 변경 후 로그확인 화면</small>  
+
+4. 전환 된 브랜치에서 파일 수정 및 신규 작업 후 커밋해보기.
+```bash
+$ echo "apple work4" >> work.txt && git commit -am "apple 워크 커밋4" # apple 브랜치에서 신규 버전생성 
+
+# google 브랜치로 전환 및 신규 파일 생성 및 기존 파일 수정 후 신규 커밋 버전생성 
+$ git checkout google
+$ echo "google work4" >> work.txt
+$ echo "google new file" >> google-work.txt
+$ git add .
+$ git commit -m "google 커밋1"
+
+# ms 브랜치로 다시 전환하여 동일한 작업 반복.
+# ms 브랜치에 신규 버전 작업 후 git log를 통하여 브랜치 모습을 확인.
+```
+<img src={'/exam/2023-11-08-15-52-41.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '360px'}} />
+<small>버전 변경 후 로그확인 화면</small>  
+
+마지막 작업 브랜치인 ms 브랜치에 HEAD가 연결되어 있으며,  
+`워크 커밋3` 기준으로 버전이 나뉜것을 확인해 볼 수 있다.
+
+---
+
+## 브랜치 병합 (merge)
+서로 다른 브랜치의 버전 들을 병합하는 방법.
+
+**명칭**  
+`base`: 합치려는 기준이 되는 조상. 위에 예제로는 "5953846 워크 커밋3" 
+
+### merge 해보기.
+```bash
+$ git branch main # 기준이 될 브랜치로 이동.
+$ git merge apple # apple 브랜치의 내용을 main으로 병합.
+```
+별 문제가 없다면 바로 merge가능.  
+
+---
+
+## 충돌 (conflict)
+하지만 충돌이 발생할 경우 충돌이 발생한 파일을 열어서 확인.
+<img src={'/exam/2023-11-08-16-11-17.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '580px'}} />
+<small>merge 명령어 실행 후 충돌이 발생한 화면</small> 
+
+소스 충돌 해결 후 git add 및 git commit 실행하면 정상적으로 merge가 된 걸 확인해 볼 수 있다.
+```bash
+$ git add ./work.txt # 기준이 될 브랜치로 이동.
+$ git commit -m "충돌 수정"
+```
+<img src={'/exam/2023-11-08-16-16-01.png'} alt={'예제 결과물'} width={'100%'} style={{maxWidth: '360px'}} />
+<small>충돌 해결 후 로그 명령어를 통해 확인 모습</small> 
+
