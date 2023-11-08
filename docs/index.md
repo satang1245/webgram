@@ -36,6 +36,6 @@ features:
     icon: 🌈
   - title: Etc
     details: 젝일..공부 할게 너무 많다..많아. git도 배워야겠지?
-    link: /etc/git/intro
+    link: /etc/git/introduction
     icon: 🔥
 ---
