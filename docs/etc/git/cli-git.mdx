@@ -114,10 +114,12 @@ git reset --hard 8a7845063c2abf972cbbf8ca3b0000016086dbbe # 뒤에 버전 아이
 
 ```
 
-8. 원하는 시점으로 돌아가기
+8. 원하는 시점으로 돌아가기  
+<small>*참고: checkout이 브랜치가 아닌 특정 버전 아이디를 가르키는 상태를 `detached` 상태라고 함.</small>  
 ```bash
-# 과거 특정버전으로 시점으로 돌아가기
+# 과거 특정버전으로 시점으로 돌아가기 
 $ git checkout 8a7845063c2abf972cbbf8ca3b0000016086dbbe # git checkout [버전 아이디]
+
 
 # 최신버전으로 돌아가기
 $ git checkout main # 현재 브런치는 마지막 최종 아이디값과 연결되어 있음으로.
