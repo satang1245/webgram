@@ -1,0 +1,104 @@
+# 원격 저장소
+
+## 백업의 필요성
+현재 사용하는 pc가 아닌 외부에 저장하기 위해 사용.
+
+[ 용어 ]  
+`host`: 인터넷에 연결된 한대 한대의 pc를 말함.  
+`hosting`: 인터넷에 연결하여 서버를 임대해 주는 것.  
+`git hosting`: git 원격서버를 임대해 주는 곳.
+
+git hosting를 제공하는 여러 사이트 중에 github에서 실습해보자.
+[GitHub](https://github.com)
+
+다른 사이트도 비교해보자.  
+[GitHosting - Git SCM Wiki](https://archive.kernel.org/oldwiki/git.wiki.kernel.org/index.php/GitHosting.html)  
+
+### 회원가입은 생략. 
+소소한팁. github는 최근 스위칭 로그인을 지원. (여러 아이디를 전환하는 것.)
+
+### 원격 저장소 생성
+github 사이트를 통하여 원격 저장소 생성   
+https://github.com/new
+
+<img src={'/exam/2023-11-09-10-36-41.png'} alt={''} width={'100%'} style={{maxWidth: '360px', border: '1px solid #ccc'}} />
+<small>[github 신규 저장소 생성 화면]</small>  
+<br /><br />
+<img src={'/exam/2023-11-09-10-48-26.png'} alt={''} width={'100%'} style={{maxWidth: '600px', border: '1px solid #ccc'}} />
+<small>[신규 저장소 생성 후 화면]</small>  
+
+### 원격 저장소 연결 (remote)
+
+**실습전 용어 설명**  
+`local repository` - 지역 저장소 or 로컬 저장소 ,내 pc에 있는 것.  
+`remote repository` - 원격 저장소, git hosting 받고 있는 github 서버  
+`https` or `ssh` - 두가지 통신 방식을 통해 원격서버와 연결하여 파일을 주고 받을 수 있다.
+
+```bash
+# 원격 저장소와 로컬 저장소를 연결.
+# 명령어 : git remove add [별칭] [원격주소]
+$ git remote add origin https://github.com/satang1245/hello-repo.git # https 통신방식으로 연결
+
+# 원격 저장소와 연결되어 있는지 확인.
+$ git remote 
+# 출력화면.
+# origin
+
+$ git remove -v # 주소까지 보여달라는 옵션 추가.
+# 출력화면.
+# origin	https://github.com/satang1245/hello-repo.git (fetch)
+# origin	https://github.com/satang1245/hello-repo.git (push)
+```
+<small>*별칭은 여러 원격저장소와 연결할 수 있는데, 이 별칭을 지정할 수 있지만 관습적으로 `origin`을 사용한다.</small>  
+
+---
+
+## 원격 저장소에 버전 업로드 (push)
+
+로컬 저장소의 파일을 원격 저장소에 업로드.
+```bash
+$ git push # 원격 저장소에 업로더 하라라는 명령어.
+```
+초기 push를 실행한다면, 오류가 나오면서 어떤 저장소의 어떤 브랜치에 업로드 할 건지 메세지가 출력됨.
+<img src={'/exam/2023-11-09-11-01-11.png'} alt={''} width={'100%'} style={{maxWidth: '500px', border: '1px solid #ccc'}} />
+<small>[git push 명령어 실행 후 화면]</small>  
+
+해당 명령어 중 git push `--set-upstream` 옵션을 통해 기본 저장소와 브랜치를 지정해 놓을 수 있음.
+```bash
+$ git push --set-upstream origin main # origin 서버에 main 브랜치를 의미.
+```
+!! 초기 원격서버 접속시 원격 아이디와 암호를 물어볼 수 있음.
+
+!! 원격 서버에 업로드 된 모습을 확인 해보고,  
+로컬 저장소에 수정 후 다시 한번 push 명령어를 실행해보자!
+
+---
+
+## 원격 저장소 복사하기(clone, 저장소 가져오기)
+
+<img src={'/exam/2023-11-09-11-13-28.png'} alt={''} width={'100%'} style={{maxWidth: '500px', border: '1px solid #ccc'}} />
+<small>[원격 저장소 github의 code버튼 클릭 모습]</small>  
+
+명령어 : `git clone [URL] [[로컬에 저장될 폴더명]]` # 로컬에 저장될 폴더명을 생략시 원격서버의 저장소명으로 된 폴더가 생성됨.
+```bash
+# 로컬 저장될 폴더명 생략시 hello-repo 라는 폴더명으로 생성됨.
+$ git clone https://github.com/satang1245/hello-repo.git 
+
+# 로컬에 abc라는 폴더명으로 생성 하고자 할 경우.
+$ git clone https://github.com/satang1245/hello-repo.git abc
+```
+
+<img src={'/exam/2023-11-09-11-23-38.png'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+<small>[git clone 실행화면]</small> 
+
+---
+
+## 원격 저장소 작업된 버전 가져오기. (pull)
+최신화 된 원격 저장소의 버전를 가져와보자.
+
+```bash
+$ git pull # 끝!
+```
+
+<img src={'/exam/2023-11-09-11-23-38.png'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+<small>[git clone 실행화면]</small> 

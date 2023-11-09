@@ -10,5 +10,9 @@
     {
         "name": "branch",
         "label": "branch & conflict"
+    },
+    {
+        "name": "remote",
+        "label": "원격 저장소"
     }
 ]
