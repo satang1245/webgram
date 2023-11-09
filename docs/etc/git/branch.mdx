@@ -34,7 +34,10 @@ $ git log
 
 ## 브랜치 생성
 
+
 ```bash
+# 실습전 사용될 명령어 미리 알아보기
+
 $ git branch # 브런치 목록 보기
 $ git branch apple # apple의 이름을 가진 브랜치 생성
 $ git branch google # google 이름을 가진 브랜치 생성
@@ -45,6 +48,8 @@ $ git checkout apple # 브랜치 전환
 # git log에 옵션을 주어 상세하게 확인하는 방법.
 $ git log --all --graph --oneline # 옵션에 대한 설명은 직접 찾아보는 걸로..
 ```
+
+### 브랜치 실습
 
 1. 현재 제품에 3개의 고객사가 있다고 가정 (apple, google, ms)
 ```bash
@@ -100,7 +105,7 @@ $ git commit -m "google 커밋1"
 **명칭**  
 `base`: 합치려는 기준이 되는 조상. 위에 예제로는 "5953846 워크 커밋3" 
 
-### merge 해보기.
+### merge 해보기
 ```bash
 $ git branch main # 기준이 될 브랜치로 이동.
 $ git merge apple # apple 브랜치의 내용을 main으로 병합.
