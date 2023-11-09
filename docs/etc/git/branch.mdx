@@ -135,7 +135,9 @@ $ git commit -m "충돌 수정"
 base 된 파일에서 2개의 브런치를 나뉘어 제작후 Merge하기.
 1. Base 라인에서 2명의 작업자가 각자 브랜치(A,B)를 생성후 작업을 한 후 merge를 했다면.  
 2. git checkout A브랜치로 이동 후 git merge B 를 통하여 머지.
-3. 충돌 해결 후 complet
+3. 충돌 해결 후 success.  
+*충돌 해결을 위해 별도의 툴이 많이 존재 하는데, 유료도 무료도 많으니 한번 찾아보자.
+생활코딩에서는 무료인 [p4Merge](https://www.perforce.com/ko/jepum/helix-core-apps/merge-diff-tool-p4merge) 툴을 추천해줬다.
 
 | Base 파일 | A 브랜치 | B 브랜치 | merge후 |
 | :--: | :--: | :--: | :--: |
@@ -143,6 +145,7 @@ base 된 파일에서 2개의 브런치를 나뉘어 제작후 Merge하기.
 | B | B | K | K |
 | C | M | C | M |
 | D | E | F | ?<small>(conflict)</small> |
+
 
 --- 
 
