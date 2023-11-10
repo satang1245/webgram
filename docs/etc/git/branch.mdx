@@ -7,7 +7,7 @@
 3. 파일 생성 후 3번의 버전을 생성.
 ```bash
 # goods폴더를 생성 후 goods 폴더로 이동.
-$ mkdir goods && cd goods 
+$ mkdir goods; cd goods 
 
 # 레파지토리 생성 (initalize repository)
 $ git init .
@@ -82,7 +82,7 @@ $ git checkout apple # 브랜치 전환
 
 4. 전환 된 브랜치에서 파일 수정 및 신규 작업 후 커밋해보기.
 ```bash
-$ echo "apple work4" >> work.txt && git commit -am "apple 워크 커밋4" # apple 브랜치에서 신규 버전생성 
+$ echo "apple work4" >> work.txt; git commit -am "apple 워크 커밋4" # apple 브랜치에서 신규 버전생성 
 
 # google 브랜치로 전환 및 신규 파일 생성 및 기존 파일 수정 후 신규 커밋 버전생성 
 $ git checkout google
