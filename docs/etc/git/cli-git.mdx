@@ -102,7 +102,11 @@ $ git log # 화면을 빠져나가려면 q버튼 클릭.
 
 6. working tree에서 변경 차이점 확인하기 (Show changes)
 ```bash
-$ git diff
+$ git diff 
+
+# 아직 브랜치를 배우진 않았지만, git diff를 통해 브랜치와 원격 브랜치를 비교할 수 있다.
+$ git diff main # git diff <브랜치> 원격브랜치 와 비교.
+$ git diff main main2 # git diff <브랜치> <브랜치2>
 ```
 
 7. 마지막 버전으로 돌리는 명령어

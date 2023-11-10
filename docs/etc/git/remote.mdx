@@ -14,8 +14,9 @@ git hosting를 제공하는 여러 사이트 중에 github에서 실습해보자
 다른 사이트도 비교해보자.  
 [GitHosting - Git SCM Wiki](https://archive.kernel.org/oldwiki/git.wiki.kernel.org/index.php/GitHosting.html)  
 
-### 회원가입은 생략. 
-소소한팁. github는 최근 스위칭 로그인을 지원. (여러 아이디를 전환하는 것.)
+### 회원가입 관련 설명은 여기에서 생략. 
+{/* 소소한팁. github는 최근 스위칭 로그인을 지원. (여러 아이디를 전환하는 것.)
+multiple accounts */}
 
 ### 원격 저장소 생성
 github 사이트를 통하여 원격 저장소 생성   
@@ -66,6 +67,9 @@ $ git push # 원격 저장소에 업로더 하라라는 명령어.
 해당 명령어 중 git push `--set-upstream` 옵션을 통해 기본 저장소와 브랜치를 지정해 놓을 수 있음.
 ```bash
 $ git push --set-upstream origin main # origin 서버에 main 브랜치를 의미.
+
+# --set-upstream 대신 -u를 사용해도 됨.
+$ git push -u origin main
 ```
 !! 초기 원격서버 접속시 원격 아이디와 암호를 물어볼 수 있음.
 
@@ -99,6 +103,114 @@ $ git clone https://github.com/satang1245/hello-repo.git abc
 ```bash
 $ git pull # 끝!
 ```
+별다른 문제가 없다면 상관이 없지만,  
+내가 작업된 부분과 충돌이 발생할 수 있는데,  
+이 때에는 당황하지 않고, 이전 수업에 배운 [충돌 해결방법](http://localhost:8080/etc/git/branch.html#%EC%B6%A9%EB%8F%8C-conflict)을 떠올리며,  
+잘 해결하면 된다. 
 
-<img src={'/exam/2023-11-09-11-23-38.png'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
-<small>[git clone 실행화면]</small> 
+    아래와 같은 이미지가 표시된다면, 이는 pull을 방식을 지정하지 않았기 때문에 나오는 부분으로 먼저 진행하면 된다.  
+
+    <img src={'/exam/2023-11-09-16-32-57.png'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+    <small>[git pull 실행시 충돌발생 화면]</small> 
+
+1. pull.rebase false (Merge) 
+    - rebase: 모든 히스토리가 남아 있어 라인이 불편할 수 있지만, 잘못된 역사도 역사!.  
+    - 내 로컬 브랜치에 충돌이 발생하며, 충돌 해결 후 로그를 확인해보면 로컬 브랜치에 신규 버전이 생성된 걸 확인 할 수 있다.  
+    <small>*해당 설정의 경우 내 로컬 브랜치에서만 이슈 해결이 처리됨으로, 이는 원격저장소에는 별도 처리 즉 push를 따로 진행해야 된다는 의미이기도 하다.</small>  
+
+    ```bash
+    # ! 설정방법
+    $ git config pull.rebase false
+
+    # --global 옵션을 추가하면 컴퓨터 전역으로 설정이 가능하다.
+    $ git config --global pull.rebase false
+
+    # 1. git pull
+    $ git pull
+
+    # 2. 충돌 발생된 파일 수정 후 버전생성(commit까지)
+    $ vi work.txt # 충돌파일 수정 후 저장.
+    $ git commit -am "git merge -1" # 로컬브랜치에 새로운 버전 생성.
+
+    ```
+    아래 이미지는 충돌이 발생한 *pull실행 후* 와, *충돌 해결 후 로컬에 commit 했을 때* 브랜치 형태를 보여준 것이다.  
+    <img src={'/exam/git-pull-conflict-rebase-false-1.jpg'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+    <small>[git pull 명령어 후 충돌 났을 경우의 모습.]</small> 
+    <img src={'/exam/git-pull-conflict-rebase-false-2.jpg'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+    <small>[충돌 해결 한 후 commit id를 생성한 모습.]</small> 
+
+    *해당 방식은 3-way merge 방식
+
+2. pull.rebase true (rebase)
+    - rebase: 라인이 깔끔해짐. 충돌 해결의 히스토리가 날라감.  
+    다른 작업자가 원격 저장소에 merge로 충돌해결 한 후 업로드 이후에 다시 이를 rebase로 전환할 경우,  
+    내가 바라보던 merge 되어 있던 commit id가 사라질 수 있을 수 있다고 함.
+    ```bash
+    # ! 설정방법
+    $ git config pull.rebase true
+
+    # --global 옵션을 추가하면 컴퓨터 전역으로 설정이 가능하다.
+    $ git config --global pull.rebase true
+
+    # 1. git pull
+    $ git pull
+
+    # 2. 충돌 발생시 임의의 브랜치로 checkout이 진행되며,  
+    # 해당 브랜치에서 문제 해결 후. 
+    $ git add . # 수정 파일 Staging에 반영.  
+    $ git rebase --continue # rebase 진행. .
+    ```
+    <small>*그냥 git commit를 실행시 해당 브랜치에서만 해결이 됨.   
+    main 브랜치로 다시 이동하기 위해 merge 진행할 경우, rebase 상태가 남아있다는 알림이 나오며 다시 시작해야함. </small>  
+    <img src={'/exam/git-pull-conflict-rebase-true-1.jpg'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+    <small>[git pull 명령어 후 충돌 났을 경우의 모습.]</small> 
+    <img src={'/exam/git-pull-conflict-rebase-true-2.jpg'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+    <small>[rebase 실행 후 임시 브랜치인`6ca6d37`가 사라지며 기존 가지에 병합됨.]</small>   
+
+    *해당 방식은 petch 방식과 유사.
+
+3. pull.ff only - fast-forward  
+    - 원격 저장소에 변경사항이 없을 경우에만 사용 가능.  
+    해당 방식은 문제가 없을 경우, 최종 원격 리모트 버전에 다가 로컬 버전을 이어서 관리 할 수 있다.
+    <img src={'/exam/2023-11-10-15-40-25.png'} alt={''} width={'100%'} style={{maxWidth: '500px'}} />
+    ```bash
+    $ git config pull.ff only
+
+    # 옵션으로도 실행가능.
+    $ git pull --ff-only # git pull [--ff-only, --ff, --no-ff ]
+    ```
+
+:::details 안내
+`merge`와 `rebase` 관련한 차이점은  [Git 브랜치 - Rebase 하기](https://git-scm.com/book/ko/v2/Git-%EB%B8%8C%EB%9E%9C%EC%B9%98-Rebase-%ED%95%98%EA%B8%B0)에서 한번 더 읽어보길 바란다.  
+또한 터미널에서 `git pull --help` 명령어를 이용하여 확인도 가능하다.
+:::
+
+---
+
+## 원격 저장소 브랜치 가져오기 (petch)
+원격 저장소의 브랜치 먼저 가져온 후, 별도 작업 후 merge를 실행.  
+`git pull` = `git fetch` + `git merge FETCH_HEAD`  
+<small>* 여러개의 원격 저장소를 사용해야 되는경우나, 원격 서버의 소스를 먼저 파악 후 merge를 실행 할 경우 유용하다.</small>
+
+```bash
+# 원격 저장소의 최신정보를 가져옴.
+$ git fetch # or git fetch origin 
+
+# origin/main 원격 저장소에서 가져온 origin/main 브랜치를 merge
+$ git merge origin/main 
+
+# 위와 명령어 origin/main 대신 `FETCH_HEAD`를 사용해도 된다.
+$ git merge FETCH_HEAD # 위 git merge origin/main과 동일.
+
+# 또는 git fetch를 통해 브랜치를 가져와서 확인 후, 
+# `git pull` 명령어를 통해 merge를 실행해도 큰 상관은 없다.
+```
+
+:::tip 소소한팁 
+`FETCH_HAED` 는 `.git`폴더 안 `FETCH_HEAD` 파일에 그 내용이 들어있으며,  
+해당 내용에는 origin/main 의 최신 포인터 위치(즉, 최신 커밋아이디)를 가르키고 있다.
+```bash
+$ cat ./git/FETCH_HEAD # .git/폴더내 FETCH_HEAD 내용 확인.
+``` 
+!['fetch_head 캡쳐 내용'](/exam/2023-11-09-16-21-16.png)
+:::
