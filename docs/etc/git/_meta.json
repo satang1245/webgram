@@ -14,5 +14,9 @@
     {
         "name": "remote",
         "label": "원격 저장소"
+    },
+    {
+        "name": "merge",
+        "label": "병합 (cheey pick & merge & rebase)"
     }
 ]
