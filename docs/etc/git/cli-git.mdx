@@ -62,7 +62,7 @@ git 백업방법을 알아두자!
 
 1. 저장소 (repository) 생성방법 (initalize repository)
 ```bash
-$ git init ./ # $ git init [Path]
+$ git init ./ # $ git init <Path>
 ```
 
 <img src={'/exam/2023-11-08-09-32-05.png'} alt={'init 결과물'} width={400} />
@@ -75,7 +75,7 @@ $ git status
 
 3. 선택 파일들을 버전관리 할거임 (add to staging area)
 ```bash
-$ git add . # or git add [file] -> git add ./work1.txt
+$ git add . # or git add <file> -> git add ./work1.txt
 ```
 
 4. staging area에 있는 파일들을 저장소에 하나의 버전으로 생성.( create version )
@@ -114,7 +114,7 @@ $ git diff main main2 # git diff <브랜치> <브랜치2>
 $ git reset --hard # 옵션은 추후 배워 봅시다.
 
 # 과거 특정버전으로 돌리기 (선택된 버전 이후에 history까지 사라짐.)
-git reset --hard 8a7845063c2abf972cbbf8ca3b0000016086dbbe # 뒤에 버전 아이디 입력.
+git reset --hard 8a7845063c2abf972cbbf8ca3b0000016086dbbe # 뒤에 버전 commit hash.
 
 ```
 
@@ -122,7 +122,7 @@ git reset --hard 8a7845063c2abf972cbbf8ca3b0000016086dbbe # 뒤에 버전 아이
 <small>*참고: checkout이 브랜치가 아닌 특정 버전 아이디를 가르키는 상태를 `detached` 상태라고 함.</small>  
 ```bash
 # 과거 특정버전으로 시점으로 돌아가기 
-$ git checkout 8a7845063c2abf972cbbf8ca3b0000016086dbbe # git checkout [버전 아이디]
+$ git checkout 8a7845063c2abf972cbbf8ca3b0000016086dbbe # git checkout <commit hash>
 
 
 # 최신버전으로 돌아가기

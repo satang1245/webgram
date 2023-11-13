@@ -1,17 +1,50 @@
 # 병합
 
 ## cherry-pick
-- 특정 버전(변경된 작업물)만 가져오기.
+- 다른 브랜치에 있는 작업물 가져오기. (특정 버전의 변경 사항만, 혹은 특정 범위의 변경 사항만 가져온다)
 
 ```bash
-$ git cherry-pick
+# git cherry-pick <commit hash> <commit hasn>
+$ git cherry-pick t2 # git cherry-pick cf8b378
 
 # 현재 충돌된 데이터 확인.
 $ git am --show-current-patch
 ```
 
+<img src={'/exam/2023-11-13-09-57-43.png'} alt={'cherry-pick 실행모습'} width={'100%'} style={{maxWidth: '480px'}} />
+<small>[cherry-pick git flow]</small>  
+- 명령어 실행 시 main브랜치 `m2`를 기준으로 `t1`,`t2`의 3-way merge가 실행 됨.
+
+
+| m2 | t1 | t2 | 결과 |
+| :--: | :--: | :--: | :--: |
+| copy | copy | copy | copy |
+| m1 | t1 | t1 | m1 |
+| m2 | -  | t2 | m2 + t2(충돌)<br /> = mt2(해결)
+
+### cherry-pick 충돌 발생시 옵션.
+```bash 
+$ git cherry-pick --abort # cherry-pick 명령어 실행전으로 다시 되돌리기.
+
+# 계속 진행하고자 할 경우, 충돌 해결 후(add 명령어까지 진행)에 continue 실행.
+$ git cherry-pick --continue # cherry-pick 이어서 진행.
+```
+예제) 실제 체리픽 실행 후 소스 충돌 해결 후 캡쳐  
+<small>[체리픽 실행 전 모습]</small><img src={'/exam/2023-11-13-10-33-35.png'} alt={''} width={'100%'} style={{maxWidth: '320px'}} />
+
+<small>[체리픽 실행]</small><img src={'/exam/2023-11-13-10-24-24.png'} alt={''} width={'100%'} style={{maxWidth: '320px'}} />
+```bash
+$ git cherry-pick cf8b378 # 체리픽 실행
+$ open work.txt # 충돌발생 후 파일 수정
+$ git add . # 수정 후 add
+$ git cherry-pick --continue # 체리픽 완료
+```
+<small>[체리픽 실행 후 모습]</small>
+<img src={'/exam/2023-11-13-10-23-36.png'} alt={''} width={'100%'} style={{maxWidth: '320px'}} />
+
+
 ## rebase
-- base 가 되는 버전을 변경하여 다른 브랜치를 이어 붙인 것.(???)
+- base 가 되는 버전을 변경하여 다른 브랜치를 이어 붙인 것.<br />즉, 한 브랜치에서 다른 브랜치로 변경 사항을 통합하는 것. (기록도 통함)
 
 
 ## merge
