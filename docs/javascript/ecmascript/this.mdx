@@ -1,0 +1,162 @@
+# this
+
+Java 프로그램에서 사용되는 this는 자신을 가르키는 참조 변수를 의미한다.  
+하지만 자바스크립트에서의 `this`는 함수가 호출 될 때, 어느 시점에 실행되는지에 따라서 동적으로 결정되는 객체를 말한다.  
+아래 예제를 보자.  
+
+```javascript
+// 테스트를 위해 전역변수 선언.
+window.lastName = '배';
+window.firstName = '수지';
+
+// 1. 일반 객체에서 메소드 this는 메소드를 호출한 객체를 의미하다.
+const user = {
+  name : '홍길동',
+  getName: function() {
+    // 여기서 의미하는 this는 user객체 자신을 의미한다.     
+    return '안녕~!, 반가워 난 ' + this.name + '이라고해';
+  },
+  setName: function(lastName, firstName) {
+
+    // 이곳에서 this는 user객체.
+    this.lastName = lastName, 
+    this.firstName = firstName;
+    this.name = this.lastName + this.firstName;
+
+    function getFullName() {
+        // 메소드 안에 함수 실행시 this는 최상위 객체인 window를 의미.
+        console.log('getFullName : ', this.lastName + ', ' + this.firstName );
+    }
+
+    // 이곳에서 this는 user객체.
+    console.log('setName = ', this.lastName + ', ' + this.firstName );
+
+    
+    getFullName(); 
+  }
+}
+
+user.setName('나','희도'); 
+
+const newUser = {
+  name : '박은빈',
+  getName: user.getName // user객체의 getName 메소드를 바인딩.
+}
+
+newUser.getName(); // -> '안녕~!, 반가워 난 박은빈이라고해'
+
+// 생성자 함수로 개발할 경우의 this
+function User(name) {
+  // 이 곳에서 this는 생성자 함수로 호출될 인스턴스 객체
+  this.name = name;
+}
+User.prototype.getName = function() {
+  return this.name;
+}
+
+// user1 이라는 인스턴스 객체를 생성
+const user1 = new User('은빈');
+user1.getName(); // 이곳에서 호출되는 this는 user1 인스턴스 객체를 의미한다.
+```
+--- 
+간략하게 보자면, 자바스크립트에서 `일반 함수`, `내부 함수`, `콜백함수`에 동작하는 함수는 모두 최상위 객체(window)를 가르킨다.  
+<small>* Server-side(node.js)에서 최상위 객체는 `global`를 의미한다.</small>
+
+```javascript
+// 1. 일반함수 실행시
+function user() {
+  console.log( 'window객체랑 this랑 같니? ==> ', this === window ); // window
+}
+user();
+
+// 2. 내부 함수
+const user = {
+  name : '홍길동',
+  getName : function() {
+    const _this = this;
+    console.log('1번실행(getName) : ', this);
+
+    const foo = function() {
+    // const foo = () => { // arrow function 이라면?
+      console.log('2번실행(foo함수) : ', this);
+    }
+    foo(); //함수 호출
+
+    setTimeout(function() {
+    // setTimeout(() => { // arrow function 이라면?
+      console.log('3번실행(setTimeout) :', this);
+      console.log('---- 하지만 편법을 이용한 _this(지역변수)를 이용해서 사용가능 ----');
+      console.log('this.name : ', _this.name);
+      console.log('---- 짜잔!! ----');
+    }, 0);
+    
+    // return this.name;
+  }
+}
+user.getName();
+
+// 3. setTimeout안에서라면.
+setTimeout(function() {
+  console.log("콜백함수에서 this는 뭐니?: ==> ",  this ); // window
+}, 100);
+
+
+```
+
+---
+
+## apply, call, bind
+Function객체의 prototype에 속해있는 메소드들.  
+<small>*Function.prototype.apply, Function.prototype.call, Function.prototype.bind  
+이 중 bind 메소드는 es5에 포함되었다.</small>  
+  - func.apply 
+    * thisArg : func 호출에 제공되는 this
+    * [argsArray] : func 호출에 전달할 인자(배열 또는 유사배열로 전달). 생략 가능.
+  - func.call( thisArg [, arg1, arg2, ...])
+    * thisArg : func 호출에 제공되는 this  
+    * arg1, arg2, ... : func 호출에 전달할 인자들. 생략가능.
+  - func.bind
+    * apply, call과 다르게 함수를 호출하진 않고, this로 사용할 객체만 전달.
+
+ ```javascript
+function User(name, age) {
+  this.name = name;
+  this.age = age;
+}
+User.prototype.getName = function() {
+    return this.name;
+}
+User.prototype.setName = function(name) {
+    return this.name = name;
+}
+const user1 = new User('나나', 28);
+const user2 = new User('수수', 22);
+const user3 = {
+    name: '파인'
+}
+
+// call
+// User.call(user3, 'Apple');
+
+//bind
+user3.getName = function() {
+  console.log('1번실행(getName) : ', this);
+
+  const foo = function() {
+    console.log('2번실행(foo함수) : ', this);
+  }.call(this);
+  foo(); //함수 호출
+
+  setTimeout(function() {
+    console.log('3번실행(setTimeout) :', this);
+    console.log('---- 하지만 편법을 이용한 _this(지역변수)를 이용해서 사용가능 ----');
+    console.log('this.name : ', _this.name);
+    console.log('---- 짜잔!! ----');
+  }.call(this), 0);
+}
+
+// this값 없이 사용 할 경우.
+const max1 = Math.max.apply(null, [5, 6, 2, 3, 7]);
+const max2 = Math.max.call(null, 5,6,2,3,7);
+
+ ```

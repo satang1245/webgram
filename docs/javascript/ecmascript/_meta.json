@@ -24,7 +24,7 @@
         "label": "프로토타입 & 빌트인 객체"
     },
     {
-        "name": "this.mdx",
-        "label": "this"
+        "name": "this",
+        "label": "this & (apply / call / bind)"
     }
 ]
