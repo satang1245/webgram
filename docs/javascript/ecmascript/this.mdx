@@ -144,15 +144,13 @@ user3.getName = function() {
 
   const foo = function() {
     console.log('2번실행(foo함수) : ', this);
-  }.call(this);
+  }.bind(this);
+
   foo(); //함수 호출
 
   setTimeout(function() {
     console.log('3번실행(setTimeout) :', this);
-    console.log('---- 하지만 편법을 이용한 _this(지역변수)를 이용해서 사용가능 ----');
-    console.log('this.name : ', _this.name);
-    console.log('---- 짜잔!! ----');
-  }.call(this), 0);
+  }.bind(this), 0);
 }
 
 // this값 없이 사용 할 경우.

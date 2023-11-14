@@ -26,5 +26,9 @@
     {
         "name": "this",
         "label": "this & (apply / call / bind)"
+    },
+    {
+        "name": "array",
+        "label": "Array"
     }
 ]
