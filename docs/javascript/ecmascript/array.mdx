@@ -26,6 +26,18 @@
         { object: true },
         function () {}
     ];
+
+    // 배열안에 배열도 가능. 2차배열
+    var arrayInArray = [
+        [0, 1, 2],
+        [1, 2, 3],
+        [4, 5, 6]
+    ]; // [ Array(3), Array(3), Array(3) ]
+    
+    var one = arrayInArray[0][1]; // 1
+    var two = arrayInArray[1][1]; // 2
+    var six = arrayInArray[2][2]; // 6
+
     ```
     ### 1.2 Array() 생성자 함수를 이용한 방법 
 
@@ -133,5 +145,170 @@
     // 2 'three'
     ```
 
-## 배열 프로토타입 
-    
+--- 
+
+## 4. 배열 메소드 (Array)
+    ### 4.1. `Array.from` - es6
+        - 유사배열객체, 또는 이터러블 객체를 변환하여 배열을 생성. 
+        <small> 
+            * 이터러블은 특수 내장 메소드인 `Symbol.interator`를 구현된 객체.  
+            * 유사배열객체는 인덱스와 length 프로퍼티가 있어서 배열처럼 보이는 객체를 말한다.
+        </small> 
+
+        ```javascript
+        // 문자열은 이터러블 
+        var str = 'Hello';
+        var arr1 = Array.from(str); // (5) ['H','e','l','l','o']
+
+        // 유사 배열
+        var obj = {
+            0: 'banana',
+            1: 'apple',
+            2: 'mango',
+            length: 3
+        }
+        var arr2 = Array.from(obj); // (3) ['banana', 'apple', 'mango']
+        
+        // 2번째 매개변수는 1번째 매개변수를 통해 배열로 만든 모든 요소를 함수로 호출하여 새로운 배열로 만든다.
+        // 반환값이 꼭 필요하다.
+        var arr3 = Array.from(str, function(key, val) {
+            console.log( key, val );
+            return key;
+        });
+        // H 0
+        // e 1
+        // l 2
+        // l 3
+        // o 4
+        console.log(arr3); // (5) ['H', 'e', 'l', 'l', 'o']
+
+        // 유사배열을 넣었을 경우
+        //var arr4 = Array.from(obj, function(key, val) {
+        //    return 'Hello : ' + key;
+        // });
+
+        // 줄여서 한줄로 축약.
+        var arr4 = Array.from(obj, key => 'Hello : ' + key);
+        console.log(arr3); // (3) ['Hello : banana', 'Hello : apple', 'Hello : mango']
+        ```
+    ### 4.2. `Array.isArray` - es5
+        - 주어진 인수가 배열인지를 체크하여 true 또는 false를 반환한다.
+
+        ```javascript
+        var arr = ['one', 'two', 'three'];
+        Array.isArray(arr); // true
+        
+        // 배열을 제외한 나머지는 false
+        Array.isArray({}); // false
+        Array.isArray('string'); // false
+        ```
+    ### 4.3 `Array.of` - es6
+        - 전달된 인수들을 가지고 배열을 생성.
+        - new Array와 같지만, 인수가 1개이며 숫자이더라도 배열을 생성한다.
+        ```javascript
+        // 인수가 1개이며 숫자이지만 배열 1을 생성한다.
+        var arr1 = Array.of(1); // [1]
+        
+        // 인수 갯수만큼 배열을 생성한다.
+        var arr2 = Array.of('one','two','three'); // (3) ['one', 'two', 'three']
+        ```
+
+## 5. 배열 프로토타입 (Array.prototype)
+    ### 5.1. `indexOf(searchElement, fromIndex)`
+        - 원본 배열에서 인수로 전달된 요소를 검색하여 인덱스를 반환.  
+        <small>*인덱스 값은 0번부터 시작.</small>
+        - 검색에서 찾게 되는 첫번째 인덱스를 반환. (여러개일 경우)
+        - 찾는 요소가 없을 경우에는 `-1`를 반환.
+        - 두번째 인자는 검색 시작 인덱스 값.
+
+        ```javascript
+        var arr = ['one', 'two', 'three', 'four', 'two' ];
+
+        // 찾는 문자열이 여러개라면 첫번째로 검색되는 index값을 반환. 
+        arr.indexOf('two'); // 1
+
+        // 찾는 문자열이 없다면 -1 값을 반환.
+        arr.indexOf('five'); // -1; 
+
+        // 특정 인덱스 부터 검색 할 수 있다.
+        arr.indexOf('two', 2); // 4
+
+        var flag = arr.indexOf('two') > -1; // true
+        
+        ```
+
+    ### 5.2. `includes(searchElement, fromIndex)` - es7
+        - 원본 배열에서 인수로 전달된 요소중 일치하는 요소를 검색하여 인덱스를 반환.
+        - indexOf와 동일하지만, indexOf는 특정 단어와 일치해도 검색이 되지만,  
+        includes는 배열에 있는 요소와 일치하는 값을 반환해준다.
+
+        ```javascript
+        var fruits = ['apple', 'banana', 'fineapple', 'strawberry'];
+
+        // 인수로 전달된 값이 가지고 있는 배열과 요소에 있는지 검색.
+        fruits.includes('bana'); // -1
+
+        // 해당 요소가 존재한다면 인덱스값 반환.
+        fruits.includes('fineapple'); // 2;
+
+        // indexOf와 동일하게 두번째 인자에 검색 시작 인덱스를 넣을 수 있다.
+        fruits.includes('banana', 2); // -1;
+        ```
+
+    ### 5.3. 배열 추가/제거 하는 메소드들.
+        - `Array.prototype.join` - 인수로 전달된 값으로 연결된 문자열을 반환한다.  
+            인수 값을 전달하지 않으면 기본값으로 (`,`)를 기준으로 문자열을 연결한다.
+
+            ```javascript
+            var arr = ['one','two','three'];
+            arr.join(); // 'one,two,three'
+
+            var tel = ['031','233','2725'];
+            tel.join('-'); // '031-233-2725'
+
+            var htmlArr = ['hello', 'hi'];
+            var html = '<div><span>' + htmlArr.join('</span><span>') + '</span></div>';
+            console.log( html ); // <div><span>hello</span><span>hi</span></div>
+            ```
+
+        - `Array.prototype.concat` - 인수로 전달된 값들(배열 또는 값)을 기존 배열에 추가하여 <u style={{color:'var(--code-token-keyword)'}}>새로운 배열을 반환</u>한다.
+
+            ```javascript
+            var fruit = ['apple', 'banana'];
+            var arr = ['fineapple'];
+
+            var fruits = fruit.concat(arr);
+            console.log(fruits) // ['apple', 'banana', 'fineapple']
+
+            // 여러개의 인수를 전달가능.
+            var fruits = fruit.concat(arr, 'strawberry', 'mango') 
+            console.log(fruits) // ['apple', 'banana','fineapple', 'strawberry', 'mango']
+            ```
+        - `Array.prototype.push` - 인수로 전달된 값들(배열 또는 값)을 <u style={{color:'var(--code-token-keyword)'}}>기존 배열에 추가</u>하고 length를 반환한다.  
+            또한 concat는 매개변수로 넘어 온 값이 배열이라면 배열을 해체하여 새로운 배열을 만드는 반면,  
+            push는 해당 배열 그대로 넣게 된다.
+
+            ```javascript
+            var fruit = ['apple', 'banana'];
+            var arr = ['fineapple'];
+
+            var fruits = fruit.push(arr);
+            console.log(fruit);  // ['apple', 'banana', ['fineapple'] ]
+            console.log(arr);  // ['fineapple'];
+            console.log(fruits); // 3
+
+            fruit.push('fineapple'); // fruit : ['apple', 'banana', ['fineapple'] ]
+
+            // 여러개의 인수를 전달가능.
+            var fruits = fruit.push('strawberry', 'mango') 
+            console.log(fruits) // ['apple', 'banana', 'strawberry', 'mango']
+            ```  
+        :::tip TIP!
+        `push`나 `concat`보다는 가능하다면, es6문법에서 추가된 `spread Syntax`을 사용하는 것이 성능면에서 좋다. 
+        #### spread Syntax 문법 맛보기
+        [스프레스 문법 알아보기](https://github.com/youngminss/Docs-modernJS__deepDive/tree/master/32-Spread%20Syntax)
+        
+        ```javascript
+        ```
+        :::  
+
