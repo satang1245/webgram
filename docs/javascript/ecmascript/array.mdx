@@ -377,21 +377,19 @@
             ```
 
         - <mark>Array.prototype.includes(searchElement, fromIndex)</mark> - es7
-            - 원본 배열에서 인수로 전달된 요소중 일치하는 요소를 검색하여 인덱스를 반환.
-            - indexOf와 동일하지만, indexOf는 특정 단어와 일치해도 검색이 되지만,  
-            includes는 배열에 있는 요소와 일치하는 값을 반환해준다.
+            - 원본 배열에서 인수로 전달된 요소중 일치하는 요소를 검색하여 true | false를 반환.
 
             ```javascript
             var fruits = ['apple', 'banana', 'fineapple', 'strawberry'];
 
             // 인수로 전달된 값이 가지고 있는 배열과 요소에 있는지 검색.
-            fruits.includes('bana'); // -1
+            fruits.includes('bana'); // false
 
-            // 해당 요소가 존재한다면 인덱스값 반환.
-            fruits.includes('fineapple'); // 2;
+            // 해당 요소가 존재한다면 true 반환
+            fruits.includes('fineapple'); // true;
 
             // indexOf와 동일하게 두번째 인자에 검색 시작 인덱스를 넣을 수 있다.
-            fruits.includes('banana', 2); // -1;
+            fruits.includes('banana', 2); // false;
             ```
 
 
