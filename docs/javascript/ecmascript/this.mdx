@@ -6,8 +6,7 @@ Java 프로그램에서 사용되는 this는 자신을 가르키는 참조 변�
 
 ```javascript
 // 테스트를 위해 전역변수 선언.
-window.lastName = '배';
-window.firstName = '수지';
+window.name = '윈도우 네임입니다.';
 
 // 1. 일반 객체에서 메소드 this는 메소드를 호출한 객체를 의미하다.
 const user = {
@@ -16,27 +15,19 @@ const user = {
     // 여기서 의미하는 this는 user객체 자신을 의미한다.     
     return '안녕~!, 반가워 난 ' + this.name + '이라고해';
   },
-  setName: function(lastName, firstName) {
-
-    // 이곳에서 this는 user객체.
-    this.lastName = lastName, 
-    this.firstName = firstName;
-    this.name = this.lastName + this.firstName;
-
+  setName: function(name) {
+    this.name = name;
     function getFullName() {
-        // 메소드 안에 함수 실행시 this는 최상위 객체인 window를 의미.
-        console.log('getFullName : ', this.lastName + ', ' + this.firstName );
+        console.log('getFullName : ', this.name );
+        console.log( this );
     }
 
-    // 이곳에서 this는 user객체.
-    console.log('setName = ', this.lastName + ', ' + this.firstName );
-
-    
+    console.log('setName: ', this.name );
     getFullName(); 
   }
 }
 
-user.setName('나','희도'); 
+user.setName('나희도'); 
 
 const newUser = {
   name : '박은빈',
