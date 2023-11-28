@@ -30,5 +30,13 @@
     {
         "name": "array",
         "label": "Array"
+    },
+    {
+        "name": "iterable",
+        "label": "iterable(이터러블) 객체"
+    },
+    {
+        "name": "regexp",
+        "label": "RegExp (정규표현식)"
     }
 ]

@@ -7,7 +7,11 @@
     "url": "git+https://github.com/satang1245/webgram.git"
   },
   "main": "index.js",
-  "devDependencies": { "rspress": "^1.4.1", "ts-node": "^10.9.1", "typescript": "^5.2.2" },
+  "devDependencies": {
+    "rspress": "^1.4.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
   "bugs": {
     "url": "https://github.com/satang1245/webgram/issues"
   },
@@ -22,5 +26,8 @@
     "dev": "rspress dev",
     "build": "rspress build",
     "preview": "rspress preview"
+  },
+  "dependencies": {
+    "revealjs-react": "^0.1.0"
   }
 }
