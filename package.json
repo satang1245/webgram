@@ -15,19 +15,12 @@
   "bugs": {
     "url": "https://github.com/satang1245/webgram/issues"
   },
-  "description": "person learning site",
-  "directories": {
-    "doc": "docs"
-  },
-  "homepage": "https://stang1245.github.com/webgram/",
+  "homepage": "https://satang1245-blog.netlify.app/",
   "keywords": [],
   "license": "ISC",
   "scripts": {
     "dev": "rspress dev --port 1245",
     "build": "rspress build",
     "preview": "rspress preview"
-  },
-  "dependencies": {
-    "revealjs-react": "^0.1.0"
   }
 }
