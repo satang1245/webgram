@@ -1,10 +1,13 @@
 [
     {
-     type : "dir",
-     name : "ECMAScript",
-     label : "ecmascript",
-     collapsible: false,
-     collapsed: false
+        "type" : "dir",
+        "name" : "ecmascript",
+        "label" : "core (ECMAScript)"
+    },
+    {
+        "type" : "dir",
+        "name" : "object",
+        "label" : "Object Model"
     }
  ]
  

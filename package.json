@@ -23,7 +23,7 @@
   "keywords": [],
   "license": "ISC",
   "scripts": {
-    "dev": "rspress dev",
+    "dev": "rspress dev --port 1245",
     "build": "rspress build",
     "preview": "rspress preview"
   },
