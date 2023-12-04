@@ -2,5 +2,9 @@
     {
         "name": "index",
         "label": "window"
+    },
+    {
+        "name": "dom",
+        "label": "DOM"
     }
 ]

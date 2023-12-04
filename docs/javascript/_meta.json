@@ -2,7 +2,7 @@
     {
         "type" : "dir",
         "name" : "ecmascript",
-        "label" : "core (ECMAScript)"
+        "label" : "ECMAScript (core)"
     },
     {
         "type" : "dir",
