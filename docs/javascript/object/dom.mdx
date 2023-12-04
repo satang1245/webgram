@@ -4,6 +4,9 @@
 ## selector API
 문서를 제어하기 위하여, 접근하는 방법에 대해 알아보자.
 
+[DOM Core - DOM methods and properties](https://quirksmode.org/dom/core/) - Last update.2013.09.03  
+[DOM Html - DOM Html properties](https://quirksmode.org/dom/html/) - Last update.2014.09.15
+
 ### 노드를 통한 접근 방법.
 ```javascript
 1. document.getElementById('아이디값');     // HTMLElement
@@ -98,7 +101,7 @@ Element 객체에 따라서 지원하는 프로퍼티가 다르다.
 - [Interface HTMLAnchroElement](https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-48250443)  
 - [Interface HTMLInputElement](https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-6043025)
 
-## 2. Conllection 
+## 2. HTMLCollection 
 복수 객체, 유사배열을 리턴.
 
 ```javascript
@@ -119,13 +122,13 @@ console.groupEnd();
 
 ```
 
-### Element 식별자 API
+### Element 식별자 API (Property)
 - Element.tagName // tag 이름 (읽기 전용)
 - Element.id // id 값. (읽기 & 쓰기 가능)
 - Element.className // className 값. (읽기 & 쓰기 가능)
 - Element.classList // classList 값. (읽기 & 쓰기 가능)
 
-### Element 속성 API
+### Element 속성 API (Method)
 - Element.getAttribute(name)
 - Element.setAttribute(name, value)
 - Element.hasAttribute(name)
@@ -163,7 +166,7 @@ input 체크박스의 checked 의 경우도 마찬가지 이다.
 :::
 
 
-## 3. Node 객체.
+## 3. Node
 모든 요소는 트리 구조로 서로 연결되어 있다.  
 즉, 부모 및 형제, 자식간의 형태 구조를 가지고 있으며 해당 Node들에는 여러 API를 제공하고 있다.
 
