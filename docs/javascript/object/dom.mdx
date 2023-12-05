@@ -138,7 +138,7 @@ console.groupEnd();
 프로퍼티를 이용하여 값을 변경할 경우, JS의 네이밍 규칙으로 동일한 값으로 이용 못하는 경우가 있다.  
 예를 들어, `class`의 프로퍼티의 경우 `class` 네이밍 대신 `className`으로 사용해야 한다.  
 또한 속성으로 호출한 값과 프로퍼티로 가져온 값이 다른 경우도 있다.  
-HTMLAnchroElement의 `href`의 경우, `Element.getAttribute('href')`로 가져온 값과 `Element.href`로  
+A 요소의 `href`의 경우, `Element.getAttribute('href')`로 가져온 값과 `Element.href`로  
 가져온 값이 다르게 해석하여 보여지는 경우가 있기 때문에, 이를 잘 확인하고 사용하여야 한다.  
 :::
 
@@ -214,8 +214,9 @@ for ( var name in Node ) {
 
 
 | 프로퍼티 | 의미 |
+| --- | --- |
 | `Node.textContent` | 텍스트 반환 및 변경. |
-| `Element.innerHTML` | Element내에 텍스트 및 html요소또한 문자열로 반환.() |
+| `Element.innerHTML` | Element내에 텍스트 및 html요소또한 문자열로 반환. |
 | `Element.innerTEXT` | Element내에 텍스트를 적용된 CSS를 고려하여 반환.( visibility: hidden의 속성의 경우 반환하지 않음. ) |
 
 
