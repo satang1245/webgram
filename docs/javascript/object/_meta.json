@@ -7,4 +7,14 @@
         "name": "dom",
         "label": "DOM"
     }
+    ,
+    {
+        "name": "bom",
+        "label": "BOM"
+    }
+    ,
+    {
+        "name": "event",
+        "label": "Event"
+    }
 ]
