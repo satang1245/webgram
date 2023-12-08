@@ -1,1 +1,56 @@
 # BOM
+
+## 1. window.screen
+화면 사이즈 정보 제공. (window 생략가능)  
+<small>*창 사이즈를 의미하는게 아님.</small>
+**property**
+- screen.width : 화면 가로 사이즈 (px단위로 반화)
+- screen.height : 화면 세로 사이즈 (px단위로 반화)
+- screen.availWidth : 주소표시줄 등을 제외한 사용가능한 화면 가로 사이즈 (px단위로 반화)
+- screen.availHeight : 주소표시줄 등을 제외한 사용가능한 화면 새로 사이즈 (px단위로 반화)
+
+```javascript
+// Display 사이즈 정보
+console.log(screen.width, screen.height); // 3008 1692
+console.log(screen.availWidth, screen.availHeight); // 2963 1667
+
+// 창 사이즈 정보
+window.outerWidth; /
+```
+
+## 2. window.location
+주소표시줄 정보 제공
+**property**
+- location.href : 현재 페이지 url 반환
+- location.hostname : 웹 호스트의 도메인 이름을 반환
+- location.pathname : 현재 페이지의 경로와 파일 이름을 반환
+- location.protocol : 사용된 웹 프로토콜(http:, https:)을 반환
+**method**
+- location.replace('이동페이지') : 페이지 이동: history를 남기지 않음.
+- location.assign('이동페이지') : 페이지 이동: history를 남김.
+
+```javascript
+console.log(location.href) // 'https://satang1245-blog.netlify.app/javascript/object/bom.html'
+console.log(location.hostname) // 'satang1245-blog.netlify.app'
+console.log(location.pathname) // '/javascript/object/bom.html'
+console.log(location.protocol) // 'https:'
+
+location.href = './dom.html'; // 이렇게도 가능.
+location.replace('./dom.html') // dom.html로 페이지 이동.
+location.assign('./dom.html') // dom.html로 페이지 이동. (뒤로 가기 누를 경우 원래페이지로 돌아옴.)
+```
+
+## 3. window.history
+브라우저 기록를 가지고 있는 객체
+**mehtod**
+- history.back() : 이전페이지로 이동
+- history.forward() : 앞페이지로 이동
+- history.go(-2) : 숫자만큼 페이지로 이동(마이너스일 경우, 뒤로 이동). `-2`는 이전의 이전 페이지로 이동.
+- history.length : (현재까지 이 창으로 이동된 페이지 수)
+- history.pushState(statu, "", url) : 페이지이동없이 이동된 것처럼 주소표시줄을 변경하며 기록을 남김.
+```javascript
+history.back(); // 이전 페이지 
+history.forward(); // 앞 페이지
+history.go(-1); // 이전 페이지
+history.pushState()
+```
