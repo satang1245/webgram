@@ -11,12 +11,14 @@
 ```javascript
 1. document.getElementById('아이디값');     // HTMLElement
 2. document.querySelector('css 샐럭터');   // HTMLElement
-
 3. document.querySelectorAll('css 샐럭터'); // NodeList
 4. document.getElementsByTagName('태그명'); // HTMLCollection
 5. document.getElementsByClassName('클래스명'); // HTMLCollection
 6. document.getElementsByName('name속성값'); // NodeList
 ```
+
+*! css에서 사용되는 가상 셀렉터(`:after`, `:before`)는 Element로 찾을 수는 없네요.
+
 ## 1. HTMLElement
 <details>
     <summary>예제소스보기</summary>
@@ -316,10 +318,12 @@ $css.innerHTML += '<span class="def"> World</span>';
 ### Style
 *property*
 ```javascript
+console.log( Element.style.backgroundColor );
 Element.style.backgroundColor = 'red';
 Element.style['backgroundColor'] = 'red';
 Element.style['background-color'] = 'red';
 
+console.log( Element.style.cssText );
 Element.style.cssText = 'background-color: red; color: white';
 Element.style.cssText += 'border: 1px solid yellow';
 ```
@@ -330,22 +334,29 @@ Element.style.removeProperty('background-color'); // [O]
 Element.style.removeProperty('backgroundColor');  // [X]
 ```
 
-*Get Style Property*
-window.getComputedStyle(Element).getPropertyValue(property);
+*Get Style Property*  
+window 객체의 `getComputedStyle` 메소드를 통하여, Element에 적용된 style을 확인할 수 있다.  
 
 ```javascript
 /**
  * 요소에 적용된 CSS 프로퍼티를 반환
  * @param {HTTPElement} elem - 대상 요소 노드.
  * @param {string} prop - 대상 CSS 프로퍼티.
+ * @param {string} pseudoClas - 의사(가상) 클래스: (:before, :after, :hover, :active)..
  * @returns {string} CSS 프로퍼티의 값.
  */
-function getStyle(elem, prop) {
-    return getComputedStyle(elem).getPropertyValue(prop);
+function getStyle(elem, prop, pseudoClass = null) {
+    return getComputedStyle(elem, pseudoClass).getPropertyValue(prop);
 }
 
+// HTMLElement.prototype.getStyle = function(prop) {
+//     return getComputedStyle(this).getPropertyValue(prop);
+// }
+
 const $js = document.querySelector('.js');
-getComputedStyle($js).getPropertyValue('color')
+getComputedStyle($js).getPropertyValue('color'); // 'rgb(255, 0, 0)'
+getStyle($js, 'color');
+getStyle($js, 'background-color'. ':after');    // 'rgb(255, 255, 0)'
 ```
 
 *styleSheet*
@@ -355,7 +366,9 @@ document.styleSheets
 
 ```javascript
 const ruleList = document.styleSheets[0].cssRules;
-Array.from(ruleList).map(rule => (rule.type === 1) && rule.selectorText);
+
+// style로 선언된 css selector 값만 출력하기
+const result = Array.from(ruleList).map(rule => (rule.type === 1) && rule.selectorText);
 
 // for (let rule of ruleList) {
 //   if (rule.type === 1) {
@@ -363,3 +376,6 @@ Array.from(ruleList).map(rule => (rule.type === 1) && rule.selectorText);
 //   }
 // }
 ```
+
+### jquery
+[jquery를 VanillaJS로 표현하기](https://gist.github.com/jahend/751e2ad08cf9afcf445d2f7270b64202)
