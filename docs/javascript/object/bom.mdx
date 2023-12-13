@@ -54,3 +54,69 @@ history.forward(); // 앞 페이지
 history.go(-1); // 이전 페이지
 history.pushState()
 ```
+
+## 4. window.navigator
+장치 및 애플리케이션 정보를 반환.
+```javascript
+navigator.connection : 네트워크 연결정보를 담고 있는 NetworkInfomation 객체를 반환 
+navigator.geolocation : 장치의 위치정보를 접근할 수 있는 gelocation 객체를 반환
+navigator.maxTouchPoints : 현재 장치에서 지원하는 최대 동시 터치 지점의 수
+navigator.appName : 더이상 권장하지 않음.(삭제되는 항목 중 하나)
+navigator.userAgent : 브라우저및 운영제제 정보를 반환.
+
+```
+
+## 5. window
+```javascript
+/*!
+ * @param {String} - 알림창에 출력될 메세지 전달.  
+ */
+window.alert(String) : 브라우저 알림창 출력.
+
+/*!
+ * @param {String} - 알림창에 출력될 메세지 전달.  
+ * @retrun {Boolean} - 알림창에 ok, cancel 버튼 선택에 따른 true | false 값을 반환.  
+ */
+window.confirm(String) : 브라우저에 알림창 출력 후 ok
+```
+
+### 브라우저 사이즈 측정.
+[출처: 탐구하는 취르미](https://dev-chim.tistory.com/entry/Javascript-Window-Size)  
+
+- 1. 디바이스 사이즈  
+<mark>screen.width</mark>, <mark>screen.height</mark>
+
+<img src={'/exam/dev-chim.tistory.com1.daumcdn.png'} alt={''} width={450} />
+
+- 2. 브라우저 사이즈  
+innerWidth | innerHeight (브라우저 주소표시줄, 스크롤바, 툴바를 제외한 사이즈),  
+outerWidth | outerHeight (브라우저 전체 사이즈 측정, 주소표시줄, 스크롤바, 툴바 포함)  
+<mark>window.innerWidth</mark>, <mark>window.inerHeight</mark>,
+<mark>window.outerWidth</mark>, <mark>window.outerHeight</mark>,
+
+<img src={'/exam/dev-chim.tistory.com3.daumcdn.png'} alt={''} width={450} />  
+[ window.innerWidth, window.innerHeight ]
+
+<img src={'/exam/dev-chim.tistory.com2.daumcdn.png'} alt={''} width={450} />
+[ window.outerWidth, window.outerHeight ]
+
+
+- 3. Element 사이즈  
+HTML 요소의 사이즈 구하기  
+    - 3.1 <mark>Element.offsetWidth</mark>, <mark>Element.offsetHeight</mark>  
+    offset = HTMLElement + Padding + border를 포함한 값. (`style.display: none` 이라면 `0` 을 반환.)  
+    <img src={'/exam/dimensions-offset.png'} alt={''} width={450} />
+
+    - 3.2 <mark>Element.clientWidth</mark>, <mark>Element.clientHeight</mark>  
+    client = HTMLElement + Padding 을 포함한 값. (`style.display: none` 이라면 `0` 을 반환.)  
+    <img src={'/exam/dimensions-client.png'} alt={''} width={450} />
+    
+    - 3.3 <mark>Element.scrollWidth</mark>, <mark>Element.scrollHeight</mark>  
+    scroll = HTMLElement 보이지 않는 영역 + Padding   
+    <img src={'/exam/scrollheight.png'} alt={''} width={450} />
+
+
+:::tip HTML 문서 사이즈 알아보기
+<mark>document.documentElement.clientWidth</mark>, <mark>document.documentElement.clientHeight</mark>
+<img src={'/exam/dev-chim.tistory.com4.daumcdn.png'} alt={''} width={450} />  
+:::
