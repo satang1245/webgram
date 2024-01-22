@@ -1,12 +1,214 @@
-# 연산자
-작성 예정..
+# 조건문 & 연산 & 반복문
+## 조건문
+*주어진 조건에 따른 평가 결과에 따라 코드 블럭문을 실행한다.
+
+### IF 문
+```javascript
+// if문
+if ( 조건식1 ) { 
+    // 조건식1이 참이면 코드 블럭 실행
+} else if ( 조건식2 ) {
+    // 조건식2가 참이면 코드 블럭 실행
+} else if ( 조건식3 ) {
+    // 조건식3가 참이면 코드 블럭 실행
+} else {
+    // 모든 조건식에 맞지 않다면..코드 블럭 실행
+}
+```
+<small>*코드 블럭내에 <u>문이 하나뿐</u>이라면 중괄호(\{\})는 생략할 수 있다.</small>
+```javascript
+var num = 2;
+var kind = null;
+
+if (num > 0)      kind = '양수';
+else if (num < 0) kind = '음수';
+else              kind = '영';
+                        
+console.log(kind);
+```
+
+### switch 문
+```javascript
+// switch문
+switch (표현식) {
+    case 표현식1:
+        // switch 문의 표현식과 표현식1이 일치하면 실행될 문;
+        break;
+    case 표현식2:
+        // switch 문의 표현식과 표현식2가 일치하면 실행될 문;
+        break;
+    default:
+        // switch 문의 표현식과 일치하는 표현식을 갖는 case 문이 없을 때 실행될 문;
+        break;
+}
+
+```
+- <small>실행문에 일치하여 실행 된 후 `break` 를 선언하지 않는다면 멈추지 않고 계속 표현식이 실행된다.</small>
+- <small>여러 조건을 묶어서 표현이 가능하며 default문은 생략이 가능하다.</small>
+```javascript
+var year = 2000; // 2000년은 윤년으로 2월이 29일이다.
+var month = 2;
+var days = 0;
+
+switch (month) {
+    case 1: case 3: case 5: 
+    case 7: case 8: case 10: case 12:
+        days = 31;
+        break;
+    case 4: case 6: case 9: case 11:
+        days = 30;
+        break;
+    case 2:
+        // 윤년 계산 알고리즘
+        days = ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) ? 29 : 28;
+        break;
+}
+
+console.log(days); // 29
+```
 
 ---
 
-# 조건문
-작성 예정..
+## 연산자
+
+### 증감 연산자
+연산자 위치에 따라 연산 값이 달라진다.
+```javascript
+var x = 5, result;
+result = x++;
+console.log(result, x); // 5, 6
+
+result = ++x;
+console.log(result, x); // 7, 7
+
+result = x--;
+console.log(result, x); // 7, 6
+
+result = --x;
+console.log(result, x); // 5, 5
+```
+
+### 비교 연산자
+
+| 비교연산자 | 사례 | 설명 |
+| :--: | :--: | :-- |
+| `==` | a \=\= b | a와 b의 값이 같음 |
+| `===` | a \=\=\= b | a와 b의 값이 같고, 타입도 같음 |
+| `!=` | a \!\= b | a와 b의 값이 다름 |
+| `!==` | a \!\=\= b | a와 b의 값이나\(or\) 타입이 다름 |
+| `>` | a \> b | a가 b보다 큰지 |
+| `<` | a \< b | a가 b보다 작은지 |
+| `>=` | a \>\= b | a가 b보다 크거나 같은지 |
+| `<=` | a \<\= b | a가 b보다 작거나 같은지 |
+
+```javascript
+var x = 5;          // type Number
+var y = '5';        // type String
+
+console.log(x == x);    // true
+console.log(x === x);   // false
+console.log(NaN == NaN); // NaN은 유일한 값임.
+```
+
+:::tip ! 타입 변환
+
+모든 값에는 타입이 존재하는데, 개발자가 의도적으로 타입을 변환시키는 것을 <b>명시적 타입변환</b> 또는 <b>타입 캐스팅</b> 이라 한다.  
+그 외 자바스크립트 엔진에 의해 암묵적으로 자동 변환될 수 있는데, 이를 <b>암묵적 타입변환</b> 또는 <b>강제 타입 변환</b>이라고 한다.
+
+```javascript
+// 명시적 타입변환
+console.log( x + y ); // 55
+console.log( x + Number(y) ); // 10
+
+// 암묵적 타입변환
+console.log( x / y ); // 1
+console.log( x - y ); // 0
+
+// 그 외에 암묵적 타입변환 예시.
+y * 2       // 10
+x / 'two'   // NaN (연산불가)
+y > 6       // false
+y > 4       // true
+
++true           // 1
++false          // 0
++null           // 0
++undefined      // NaN
++{}             // NaN
++[]             // 0
++[10, 20]       // NaN
++(function(){}) // NaN
+
+1 + true        // 2
+1 + undefined   // NaN
+
+['hello','world'] + '' // 'hello,world'
+
+!0 // true
+!undefined // true
+!null // true
+!'' // true
+```
+<small>[*명시적 타입 변환 자세히 보기](https://poiemaweb.com/js-type-coercion#3-%EB%AA%85%EC%8B%9C%EC%A0%81-%ED%83%80%EC%9E%85-%EB%B3%80%ED%99%98)</small>
+:::  
+
+### 논리 연산자
+| 논리연산자 | 사례 | 의미 |
+| :--: | :--: | :-- |
+| `\|\|` | `a \|\| b` | 논리합\(or\) \- a 나 b가 참일 경우 참 |
+| `&&` | `a && b` | 논리합\(and\) \- a 그리고 b가 참일 경우 참 |
+
+```javascript
+var done = true;
+var msg = done && "합격";
+console.log( msg );     // "합격"
+
+'Cat' || 'Dog'      // 'Cat'
+false || 'Dog'      // 'Dog'
+'Cat' || false      // 'Cat'
+
+'Cat' && 'Dog'      // 'Dog'
+false && 'Dog'      // false
+'Cat' && false      // false
+```
+| 표현식 | 결과 |
+| :--: | :-- |
+| `true` \|\| `anything` | `true` |
+| `false` \|\| `anything` | `anything` |
+| `true` && `anything` | `anything` |
+| `false` && `anything` | `false` |
+
+:::tip *드모르간 법칙
+ 
+ `!`부정의 의미, `!!` 2개를 사용할 경우 부정의 부정임으로 참.  
+```javascript
+!!(x || y) === (!x && !y)  
+!!(x && y) === (!x || !y)  
+```
+:::
+
+
+### 삼항 연산자
+**조건식** `?` <u>참</u> 일때 경우 반환 값 `:` <u>거짓</u>일때 경우 반환 값
+```javascript
+// 일반 if문의 경우.
+// 가독성은 좋으나 소스가 길어진다.
+var age = 39;
+var result = '';
+if ( age >= 35 ) {
+    result = '으른';
+} else {
+    result = '청년';
+}
+
+// 삼항연산자로 표현할 경우.
+// 소스는 짧으나 한눈에 파악하기 어렵다.
+var age = 39;
+var result = (age >= 35) ? '으른' : '청년';       
+console.log( result )   // 으른
+```
 
 ---
 
-# 반복문
+## 반복문
 작성 예정..

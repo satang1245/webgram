@@ -1,0 +1,53 @@
+# 01. React 개발을 위해 꼭 알아야 할 자바스크립트
+
+
+## 1. 자바스크립트의 데이터 타입  
+
+  ### 1.1 원시타입 (primitive type)
+    - boolean
+    - null
+    - undefined
+    - number
+    - string
+    - symbol
+    - bigint  
+
+  ### 1.2. 객체타입 (object/reference type)
+    - object
+
+    > 원시타입과 객체타입의 가장 큰 차이점은  
+    > 값을 저장하는 방식에서 가장 큰 차이가 있으며,  
+    > 원시 타입의 경우 값을 불변의 값으로 값이 메모리에 할당되지만 객체타입의 경우 값을 참조하게 된다.
+
+    ```javascript
+    var hello = 'Hello';
+    var hello2 = 'Hello';
+    var hi = hello;
+
+    // 원시타입 값 비교.
+    console.log(hello === hello2);  // true
+    console.log(hello === hi);      // true
+
+    var oHello = {
+        greet : 'Hello, world'
+    }
+    var oHello2 = {
+        greet : 'Hello, world'
+    }
+
+    // 객체타입 값 비교
+    console.log(oHello === oHello2);    // false
+
+    // 객체타입 값 비교
+    var oHi = oHello;
+    oHi.greet = 'Hi';
+    console.log(oHello === oHi);        // true
+    ```
+
+## 2. 타입 비교
+  ### 2.1 Object.is
+  `Object.is`는 
+
+  ```javascript
+  -0 === +0
+  ```

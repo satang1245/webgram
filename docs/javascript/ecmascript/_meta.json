@@ -13,7 +13,7 @@
     },
     {
         "name": "operation",
-        "label": "연산 & 조건문 & 반복문"
+        "label": "조건문 & 연산 & 반복문"
     },
     {
         "name": "object",

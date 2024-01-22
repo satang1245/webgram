@@ -347,6 +347,9 @@ window 객체의 `getComputedStyle` 메소드를 통하여, Element에 적용된
  * @returns {string} CSS 프로퍼티의 값.
  */
 function getStyle(elem, prop, pseudoClass = null) {
+    return getComputedStyle(elem, pseudoClass)[peop]; //결과가 동일하다.
+    
+    // 위 내용과 결과가 동일하다
     return getComputedStyle(elem, pseudoClass).getPropertyValue(prop);
 }
 
@@ -356,6 +359,8 @@ function getStyle(elem, prop, pseudoClass = null) {
 
 const $js = document.querySelector('.js');
 getComputedStyle($js).getPropertyValue('color'); // 'rgb(255, 0, 0)'
+
+console.log( getComputedStyle($js).color );
 getStyle($js, 'color');
 getStyle($js, 'background-color'. ':after');    // 'rgb(255, 255, 0)'
 ```
@@ -380,7 +385,7 @@ const result = Array.from(ruleList).map(rule => (rule.type === 1) && rule.select
 
 ### jquery
 [jquery를 vanilla JS로 표현하기. 1](https://gist.github.com/jahend/751e2ad08cf9afcf445d2f7270b64202)  
-[jquery를 vanilla JS로 표현하기. 2](https://gist.github.com/liamcurry/2597326)
+[jquery를 vanilla JS로 표현하기. 2](https://gist.github.com/liamcurry/2597326)  
 [vanilla JS 속도 비교](http://vanilla-js.com/)
 
 
