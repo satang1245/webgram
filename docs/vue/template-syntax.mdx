@@ -1,0 +1,39 @@
+# Template Syntax
+
+ Vue는 컴포넌트 인스턴스의 데이터를 서술적으로 렌더링된 DOM에 바인딩할 수 있는 HTML 기반 템플릿 문법을 사용함.  
+
+내부적으로 Vue는 템플릿을 고도로 최적화된 JavaScript 코드로 컴파일함. 
+반응형 시스템과 결합된 Vue는 앱 상태의 변경 사항을 적용할 때, 다시 렌더링할 필요가 있는 
+최소한의 컴포넌트를 지능적으로 파악하고 DOM 조작을 최소화 한다.
+
+---
+
+## 텍스트 보간법
+데이터 바인딩의 가장 기본적인 형태.  
+이중 중괄호를 이용한 문법.
+```jsx
+<span>메세지: {{ msg }}</span>
+```
+
+*이중 중괄호 안에 정의된 값은 vue 인스턴스안에 정의된 값으로 대체되며,  
+해당 부분에서는 javascript 표현식도 사용 가능하다. 
+
+---
+
+## html 속성 및 출력
+템플릿내 문법은 html처럼 보이나, 실제 html이 아니므로  
+별도의 디렉티브를 사용하여 작성해야 한다.
+
+```jsx
+<h1>안녕하세요! {{ rawHtml }}</h1>
+// 출력시 html 코드가 string 형태로 출력.
+// -> 안녕하세요! <span class="color:red">여러분</span>
+
+<h1>안녕하세요! <span v-html="rawHtml"></span></h1>
+// -> 출력시 span요소 안에 html코드가 생성.
+// -> Compile 결과: 
+// -> <h1>안녕하세요! <span><span class="color:red">여러분</span></span></h1>
+```
+
+속성 적용방법의 경우 `v-bind`라는 디렉티브를 사용한다.  
+[*디렉티브](https://ko.vuejs.org/api/built-in-directives.html)

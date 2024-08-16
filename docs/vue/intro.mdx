@@ -122,3 +122,45 @@ export default {
 :::  
 
 <PackageManagerTabs command="create vue@latest" />
+
+### 2. CDN 서버를 통해 vue.js를 로드하는 방법
+
+```html
+<!-- vue 전역객체 로드 -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<div id="app">{{ message }}</div>
+<script>
+  const { createApp, ref } = Vue
+
+  createApp({
+    setup() {
+      const message = ref('Hello vue!')
+      return {
+        message
+      }
+    }
+  }).mount('#app')
+</script>
+
+
+<!-- ES module 사용시 -->
+<div id="app">{{ message }}</div>
+<script type="module">
+  import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+  createApp({
+    setup() {
+      const message = ref('Hello Vue!')
+      return {
+        message
+      }
+    }
+  }).mount('#app')
+</script>
+```
+
+---
+
+vscode 추천 익스텐션
+1. [es6-string-html](https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html)

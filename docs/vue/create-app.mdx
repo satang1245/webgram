@@ -1,0 +1,53 @@
+# 앱 생성
+
+---
+
+## Instance (인스턴스)
+
+모든 vue는 새로운 인스터스를 생성하는 것으로 시작.
+
+```js
+import { createApp } from 'vue'
+const app = createApp({
+	// options
+})
+```
+
+## 최상위 컴포넌트 
+
+`createApp` 에 전달되는 객체는 컴포넌트이지만, 제일 처음 전달되는 객체이기 때문에 최상위 컴포넌트 이기도 하다.  
+우리가 제작하게 될 모든 컴포넌트 구조는 대체로 이 최상위 컴포넌트 하위로 제작
+
+```html
+
+<div id="app"></div>
+
+<script>
+	import { createApp } from 'vue'
+	
+	// 싱글 파일 컴포넌트에서 최상위 컴포넌트
+	import App from './App.vue'
+	const app = createApp(App)
+	
+	// 인스턴스에 mount 함수를 실행되기 전까지는 실제 작동되지 않는다.
+	app.mount('#app')
+
+	// 멀치 앱 생성시 인스턴스를 추가 하면된다.
+	const app2 = createApp({
+
+	})
+	app2.mount('#app-2')
+</script>>
+```
+
+```
+// vue 컴포넌트 구조 예시. (Single File Component)
+App (최상위 컴포넌트)
+├─ TodoList
+│  └─ TodoItem
+│     ├─ TodoDeleteButton
+│     └─ TodoEditButton
+└─ TodoFooter
+   ├─ TodoClearButton
+   └─ TodoStatistics
+```

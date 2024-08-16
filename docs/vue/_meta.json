@@ -6,5 +6,17 @@
     {
         "name": "api-style",
         "label": "API 스타일"
+    },
+    {
+        "name": "create-app",
+        "label": "App 생성"
+    },
+    {
+        "name": "template-syntax",
+        "label": "템플릿 문법"
+    },
+    {
+        "name": "directives",
+        "label": "(built-in) 디렉티브"
     }
 ]
