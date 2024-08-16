@@ -18,5 +18,17 @@ export default defineConfig({
     footer: {
       message: '© Webgram. All rights reserved.',
     }
-  }
+  },
+  // markdown: {
+  //   highlightLanguages: [
+  //     // Alias as md, full name as markdown
+  //     ['js', 'javascript'],
+  //     ['ts', 'typescript'],
+  //     ['jsx', 'tsx'],
+  //     ['xml', 'xml-doc'],
+  //     ['md', 'markdown'],
+  //     ['mdx', 'tsx'],
+  //     ['vue', 'js-templates']
+  //   ],
+  // },
 });
