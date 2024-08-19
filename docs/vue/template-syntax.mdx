@@ -33,7 +33,57 @@
 // -> 출력시 span요소 안에 html코드가 생성.
 // -> Compile 결과: 
 // -> <h1>안녕하세요! <span><span class="color:red">여러분</span></span></h1>
+
+// 속성적용방법
+<div v-bind:id="`list-${id}`"></div>
 ```
 
 속성 적용방법의 경우 `v-bind`라는 디렉티브를 사용한다.  
-[*디렉티브](https://ko.vuejs.org/api/built-in-directives.html)
+
+[*디렉티브란?](/vue/directives)
+
+
+![deractive](/exam/2024-08-19-09-25-24.png)
+
+---
+
+## Javascript 표현식
+자바스크립트 표현식은 다음과 같은 위치에서 사용할 수 있습니다.
+ - 이중 중괄호 내부 (텍스트 보간법 내부)
+ - 디렉티브 속성 내부 (`v-`로 시작되는 특수 속성)
+
+자바스크립트 표현식은 각 바인딩에는 하나의 단일 표현식만 포함 가능.  
+<small>*표현식이란 값으로 평가할 수 있어야 하는 코드 조각, `return`뒤에 사용할 수 있는 코드 </small>
+
+```jsx
+/* 표현식 예  */
+{{ number + 1 }}
+
+{{ ok ? '예' : '아니오' }}
+
+{{ message.split('').reverse().join('') }}
+
+<div :id="`list-${id}`"></div>
+
+// method 호출 가능
+<time :title="toTitleDate(date)" :datetime="date">
+  {{ formatDate(date) }}
+</time>
+
+
+/* 사용불가 예 */
+// 이것은 표현식이 아니라 선언식입니다
+{{ var a = 1 }}
+
+// 흐름 제어도 작동하지 않습니다. 삼항 표현식을 사용하십시오.
+{{ if (ok) { return message } }}
+```
+
+
+
+:::danger
+템플릿내에서 사용되는 Javascript 표현식은 
+[제한된 전역 리스트](https://github.com/vuejs/core/blob/main/packages/shared/src/globalsAllowList.ts#L3)에만 접근이 가능합니다.  
+리스트에 제외된 `winodw`와 같은 전역 속성은 템플릿 표현식에서 접근할 수 없으며, 템플릿내에 전역으로 사용하고 자 하는 경우  
+`app.config.globalProperties`에 추가하여 접근가능하도록 명시해야 합니다.
+:::

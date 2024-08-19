@@ -1,0 +1,55 @@
+# 반응형 기초 (변수 설정 및 사용)
+
+:::info
+API 환경에는 `Options API`와 `CompositionAPI` 두 가지 방식이 있으니,  
+두 방식의 차이를 잘 이해하며 봐야 한다. 
+:::
+
+---
+
+## 데이터 설정
+### 1. Options API
+```html
+<script>
+export default {
+  data() {
+    return {
+      count: 1
+    }
+  },
+  methods: {
+    increment() {
+      this.count++
+    }
+  },
+
+  // `mounted`는 나중에 설명할 생명 주기 훅입니다.
+  mounted() {
+    // `this`는 컴포넌트 인스턴스를 나타냅니다.
+    console.log(this.count) // => 1
+
+    // 값을 변경할 수 있습니다.
+    // this.count = 2
+    this.increment()
+  }
+}
+</script>
+
+<button @click="increment">{{ count }}</button>
+```
+#### DOM 업데이트 타이밍
+상태 변경 후, DOM 업데이트가 완료될 때까지 기다리려면 nextTick() API를 사용하면 됩니다.
+
+```javascript
+import { nextTick } from 'vue'
+
+export default {
+  methods: {
+    async increment() {
+      this.count++
+      await nextTick()
+      // 이제 DOM이 업데이트되었습니다.
+    }
+  }
+}
+```

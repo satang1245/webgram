@@ -16,7 +16,11 @@
         "label": "템플릿 문법"
     },
     {
+        "name": "reactivity-fundamentals",
+        "label": "반응형 기초"
+    },
+    {
         "name": "directives",
-        "label": "(built-in) 디렉티브"
+        "label": "디렉티브"
     }
 ]

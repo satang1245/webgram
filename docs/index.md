@@ -28,6 +28,7 @@ features:
   - title: React & vue & svelte
     details: 라이브러리? 프레임워크? 뭐지?
     icon: 🐥
+    link: /front-end
   - title: Node & Deno & bun
     details: js로 Back-end까지 한번..
     icon: 🐒
