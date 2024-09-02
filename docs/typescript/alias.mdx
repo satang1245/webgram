@@ -44,6 +44,14 @@ interface User {
 	addr: string; 
 }
 ```
+병합하지 않고 추가적인 프로퍼티가 있다고 생성하는 방법도 있다.
+```ts
+interface User {
+	name: string;
+	age: number;
+	[propName: string]?: any;
+}
+```
 
 ```ts
 // e.g.
@@ -89,4 +97,23 @@ class ColorBox implements Colors, Box {
 }
 ```
 
-|
+---
+
+## Readonly properties (읽기 전용)
+
+일부 프로퍼티의 값을 변경하지 않도록 하기 위해 `readonly`를 추가하여 지정할 수 있다.
+
+```ts
+interface User {
+	readonly name: string;
+	readonly age: number;
+}
+let user1: User = {
+	name: 'satang1245',
+	age: 36
+};
+
+user1.age = 41; // error
+```
+<small>* `const`는 변수에 재할당이 불가능하자민, `readonly` 같은 경우에는 프로퍼티 값의 변경이 불가능하다.</small>
+
