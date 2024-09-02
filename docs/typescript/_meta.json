@@ -1,1 +1,14 @@
-[]
+[
+	{
+        "name": "introduction",
+        "label": "Typescript"
+    },
+    {
+        "name": "types",
+        "label": "타입정의"
+    },
+    {
+        "name": "alias",
+        "label": "별칭(alias)"
+    }
+]

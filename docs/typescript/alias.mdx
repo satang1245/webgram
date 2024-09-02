@@ -1,0 +1,92 @@
+# alias (별칭)
+---
+같은 타입을 재사용하기 위해 별칭을 사용하여 여러차례 재사용하는 방법
+
+## type 키워드
+type `타입명` = `값`
+
+```ts
+// 단일 원시값 선언시.
+// type userName = string;
+
+type User = {
+	name: string;
+	age: number;
+}
+
+function getUserInfo(user: User) {
+	return `안녕하세요 ${user.name}님. 님 나이는 ${user.age}살 입니다` 
+}
+
+getUserInfo({name: 'satang1245', age: 36})
+```
+
+## interface
+alias랑 비슷하지만 선언방식과 활용방법에서 약간의 차이점이 존재함.
+
+```ts
+interface User {
+    name: string;
+    age: number;
+}
+
+interface User {
+    addr: string;
+	// age: string - 동일값이 이미 존재한다면 새로 할당하는게 아닌 오류.
+}
+```
+User 별칭의 값은 병합되어 나타난다.
+```ts
+// 결과 값.
+interface User {
+	name: string;
+	age: number;
+	addr: string; 
+}
+```
+
+```ts
+// e.g.
+function getUser(user: User) {
+    console.log(`당신의 이름은 ${user.name}이며, 나이는 ${user.age}입니다`)
+    console.log(`당신이 사는 곳은 ${user.addr}입니다.`)
+}
+
+getUser({name:'satang1245', age:36, addr: '홍대'})
+
+```
+
+interface 문법은 implements 또는 extends 통하여 상속하여 사용가능하다.
+위 두 문법은 추후 작성예정.
+
+```ts
+interface Colors {
+	color: string;
+}
+interface Box {
+	width: number,
+	height: number
+}
+
+// Colors 와 Box를 상속받아 ColorBox를 생성.
+interface ColorBox extends Colors, Box {
+    round: boolean
+}
+
+const colorbx: ColorBox = {
+    color: 'red',
+    width: 120,
+    height: 120,
+    round: false
+}
+
+// implements로 사용할 경우.
+class ColorBox implements Colors, Box {
+    color = 'red';
+    width = 120;
+    height = 120;
+    round = false;
+}
+```
+
+|
