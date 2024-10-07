@@ -9,6 +9,10 @@
     },
     {
         "name": "alias",
-        "label": "별칭(alias)"
+        "label": "Types & Interface"
+    },
+    {
+        "name": "function",
+        "label": "Function"
     }
 ]

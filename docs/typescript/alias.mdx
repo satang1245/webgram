@@ -1,4 +1,4 @@
-# alias (별칭)
+# Types & Interface
 ---
 같은 타입을 재사용하기 위해 별칭을 사용하여 여러차례 재사용하는 방법
 
@@ -117,3 +117,36 @@ user1.age = 41; // error
 ```
 <small>* `const`는 변수에 재할당이 불가능하자민, `readonly` 같은 경우에는 프로퍼티 값의 변경이 불가능하다.</small>
 
+---
+
+## Enum 타입
+상수형 값의 형태로 지정하여, 버그를 줄일 수 있도록 사용.  
+열거형 변수로 아무것도 선언하지 않는 경우 0부터 인덱스값이 증가.
+
+<small>(주관적 의견: 상수의 값을 지정해놓고 사용하는 것 같음)</small>
+
+```ts
+// 변수값 지정을 하지 않는경우.
+enum OS {
+	IOS, // 0
+	AOS, // 1
+	MacOs, // 2 
+	windows // 3
+}
+
+enum OS {
+	IOS: 'ios',
+	AOS: 'android',
+	MacOs: 'mac',
+	windows: 'window'
+}
+
+const os: OS = OS.MacOs
+function detactOS(ua: string): OS {
+	// return 
+}
+```
+
+:::info
+해당 속성은 선언된 타입을 실제 사용하지 않아도 컴파일하고 나면, 해당 소스가 변수로 선언되기 때문에, 사용자체는 지양하는 편이다.
+:::
