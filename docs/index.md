@@ -35,8 +35,8 @@ features:
   - title: webpack, percel, vite..
     details: 번들러도 알아야 하는구나..
     icon: 🌈
-  - title: Etc
-    details: 젝일..공부 할게 너무 많다..많아. git도 배워야겠지?
+  - title: Git
+    details: git도 배워야겠지?
     link: /etc/git/introduction
     icon: 🔥
 ---
