@@ -1,0 +1,42 @@
+# stash
+
+---
+
+git stash란 작업중인 사항을 커밋하지 않고 임시 저장해두는 방법이다.  
+변경사항이 커밋할 준비가 되지 않은 상태에서 타 브랜치로 이동하려고 할 경우
+오류가 발생할 수 있는데 이런 경우에 유용하다.
+
+## 명령어
+
+### 1. 저장
+```bash
+git stash
+git stash save "임시 저장 메세지" // or
+```
+
+### 2. 목록확인
+```bash
+git stash list
+```
+ 
+ ### 3. 호출
+ - `pop` 명령어를 사용하여 호출시 변경내역을 적용 후 stash 내역에서는 삭제 된다.
+ - `apply` 명령어를 사용하면, 변경내역이 적용되며 stash 내역에서 삭제되지 않는다.
+ ```bash
+ git stash pop // 가장 최근 변경 내역을 가져와 적용한다.
+ git stash pop <index> // or
+
+ git stash apply <index> // 변경내역을 가져와 적용하지만, 임시저장목록에 삭제가 되지 않는다.
+ ```
+
+### 4. 삭제
+```bash
+git drop <index>
+```
+
+### 5. etc  
+`stash 내용으로 새로운 브랜치 생성하기`
+
+```bash
+git stash branch <new_branch_name>
+```

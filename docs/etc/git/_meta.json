@@ -18,5 +18,9 @@
     {
         "name": "merge",
         "label": "병합 (cheey pick & merge & rebase)"
+    },
+    {
+        "name": "stash",
+        "label": "Stash (임시저장)"
     }
 ]
