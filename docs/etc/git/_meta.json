@@ -22,5 +22,9 @@
     {
         "name": "stash",
         "label": "Stash (임시저장)"
+    },
+    {
+        "name": "etc",
+        "label": "tip(내가 보려고 정리 한 것)"
     }
 ]

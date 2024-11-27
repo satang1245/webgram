@@ -1,0 +1,35 @@
+# Tip
+
+내가 보는 자주 사용되는 문법들 정리하는 곳.
+
+#### 참고로 알아둘 용어들 정리
+1. Repository - 저장소 (Git Commit 된 이후 저장소)
+2. Staging Area - 버전으로 만들고자 하는 작업물 저장소 (Git Add 된 상태값) 
+3. Working tree - 작업하는 폴더
+4. `HEAD` - 현재 브랜치의 가장 최신 커밋을 가르키는 위치.  
+> `HEAD^` - `^`는 이전 단계를 의미. 즉 HEAD^는 현재 바로 이전의 커밋을 의미.  
+> 또한 `^`는 여러개 사용하여 원하는 포인트를 찾을수도 있음. 예를 들어 `HEAD^^^`의 경우  
+> 현재에서 3번째 이전 단계의 커밋을 의미함.
+5. `origin` - 원격 저장소에 연결된 주소를 별칭으로 지정한 것, 즉 원격저장소를 의미  
+<small>(origin이 아닌 원하는 별칭으로 설정해도 되지만 관습적으로는 origin을 사용)</small>
+6. `git pull` - `git fetch + git merge` <small>해당 명령어의 결합으로, 원격저장소의 값을 가져와서 내 브랜치와 머지를 시도한다.</small>  
+<small>`fetch`: 원격저장소의 변경사항 가져오기, `merge`: 파일병합</small>
+
+
+---
+
+#### 1. LF에서 CRLF로 자동변환 명령어 
+```bash
+git config --global core.autocrlf true # CRLF 자동변환 함.
+git config --global core.autocrlf false # CRLF 자동변환 안함.
+```
+
+#### 2. 되돌리기
+  
+#### 2.1. RESET
+- `--soft` : **repository**에서 **staging Area**로 되돌린다는 의미 
+- `--hard` : **working tree**에 있는 작업물들도 되돌린다는 의미
+- `--mixid`(기본값) : **repository**에서 **working tree**로 되돌린다는 의미, 파일자체는 변화가없음.
+```bash
+git reset <options> <commit-ish> # git reset --hard HEAD
+```
