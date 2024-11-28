@@ -6,10 +6,11 @@
 1. Repository - 저장소 (Git Commit 된 이후 저장소)
 2. Staging Area - 버전으로 만들고자 하는 작업물 저장소 (Git Add 된 상태값) 
 3. Working tree - 작업하는 폴더
-4. `HEAD` - 현재 브랜치의 가장 최신 커밋을 가르키는 위치.  
+4. `HEAD` - 현재 브랜치의 마지막 커밋을 가르키는 위치.  
 > `HEAD^` - `^`는 이전 단계를 의미. 즉 HEAD^는 현재 바로 이전의 커밋을 의미.  
 > 또한 `^`는 여러개 사용하여 원하는 포인트를 찾을수도 있음. 예를 들어 `HEAD^^^`의 경우  
-> 현재에서 3번째 이전 단계의 커밋을 의미함.
+> 현재에서 3번째 이전 단계의 커밋을 의미함.  
+> `HEAD~3` 또한 위와 같은 내용을 의미한다. HEAD`~`뒤에 `취소할 커밋수`를 지정하면 된다.
 5. `origin` - 원격 저장소에 연결된 주소를 별칭으로 지정한 것, 즉 원격저장소를 의미  
 <small>(origin이 아닌 원하는 별칭으로 설정해도 되지만 관습적으로는 origin을 사용)</small>
 6. `git pull` - `git fetch + git merge` <small>해당 명령어의 결합으로, 원격저장소의 값을 가져와서 내 브랜치와 머지를 시도한다.</small>  
@@ -25,11 +26,35 @@ git config --global core.autocrlf false # CRLF 자동변환 안함.
 ```
 
 #### 2. 되돌리기
-  
-#### 2.1. RESET
+
+- `restore` : 파일을 되돌리고 싶은 경우  
+- `revert` : 되돌리면서 버전을 새로 만들고 싶은 경우  
+- `reset` : 되돌아가고 싶은 시점을 되돌아가기  
+> **revert**는 특정 시점으로 되돌아 갈 경우, 그 중간에 수정된 내역은 그대로 남아 있어서 충돌(confirm) 상태가 될 확률이 높다.  
+> **reset**은 특정 시점으로 되돌아 갈 경우, 아예 그 시점으로 되돌아 가서 중간에 수정된 내역은 전부 사라진다.  
+> <u>대신 버전관리를 다른 사람들과 협업하여 사용될 경우 내 커밋로그만 지운다고 해결되는게 아니기 떄문에 협업시 주의</u>하여야 한다.
+
+#### 2.1. reset
+[옵션]
 - `--soft` : **repository**에서 **staging Area**로 되돌린다는 의미 
 - `--hard` : **working tree**에 있는 작업물들도 되돌린다는 의미
 - `--mixid`(기본값) : **repository**에서 **working tree**로 되돌린다는 의미, 파일자체는 변화가없음.
+
 ```bash
 git reset <options> <commit-ish> # git reset --hard HEAD
 ```
+
+```bash
+# e.g) 아래와 같이 실행시 진행상황
+git reset --herd ceca0f9 # ceca0f9 -> commit-id
+```
+<img src={'/exam/2024-11-28-07-53-30.png'} width={330} />
+&lt;현재상황&gt;
+
+<img src={'/exam/2024-11-28-08-02-30.png'} width={330} />
+&lt;git reset 명령어 실행 후&gt;
+
+> `git reset` 이후에는 뒤에 있는 commit 기록 자체가 사라진다.
+
+#### 2.2 revert
+
