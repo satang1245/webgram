@@ -57,4 +57,46 @@ git reset --herd ceca0f9 # ceca0f9 -> commit-id
 > `git reset` 이후에는 뒤에 있는 commit 기록 자체가 사라진다.
 
 #### 2.2 revert
+- 특정 시점의 내용을 되돌린 후 신규 커밋로그를 생성. (되돌린 내용에 그 뒤에 나온 내용과 다른경우 충돌이 발생.)  
+
+```bash
+# e.g) 
+# 1. 커밋 하나당 파일 한개씩 신규 생성, 
+# 2. 처음 생성한 파일에 신규 내용을 추가.
+
+# 첫번째 커밋
+echo "hello" > a.txt
+git add .
+git commit -m "commit 1"
+# -- 2번째 커밋
+echo "hello 2" >> a.txt
+touch b.txt
+git add .
+git commit -m "commit 2"
+# -- 3번째 커밋
+echo "hello 3" >> a.txt
+touch c.txt
+git add .
+git commit -m "commit 3"
+# -- 4번째 커밋
+echo "hello 4" >> a.txt
+touch d.txt
+git add .
+git commit -m "commit d"
+```
+<img src={'/exam/2024-12-02-10-22-13.png'} width={330} />
+```bash
+git revert 56de5c1 # commit 2의 상황을 revert 시킴.
+```
+`revert` 명령어를 이용하여 2번째 커밋 상황으로 되돌리게 되면 아래 이미지와 같은 충돌이 발생한다.  
+2번째 커밋에서 수정한 hello2 이후 해당 파일에 커밋3, 커밋4와 같은 수정이 발생했기 때문이다.
+<img src={'/exam/2024-12-02-10-39-53.png'} style={{width: 'fit-content'}} />
+
+해당 상황에서 다시 원상태로 복귀하려면, `git revert --abort` 옵션을 주면 `revert 실행전` 상태로 되돌아 간다.  
+그게 아니라면 충돌 상황을 해결해 주면 된다.
+<div style={{display:'flex',gap:'8px'}}>
+	<img src={'/exam/2024-12-02-11-05-22.png'} width={330} />
+	<img src={'/exam/2024-12-02-11-09-07.png'} width={330} />
+</div>
+충돌 해결 후 위 이미지와 같이 새로운 커밋로그가 발생한다.
 
